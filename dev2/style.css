@@ -1,0 +1,9 @@
+html, body {
+ 	height: 100%;
+}
+div.row {
+	border: 1px solid silver;
+}
+.news-wrapper {
+	height: 100%;
+}
