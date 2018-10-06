@@ -54,8 +54,6 @@ public class UserDAO {
     }
 
     private String getScopeById(int scope_id) {
-        System.out.println("SCOPE ID " + scope_id
-        );
         try {
             PreparedStatement ps = connection.prepareStatement("select * from scope where id=?");
             ps.setInt(1, scope_id);

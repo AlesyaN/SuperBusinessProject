@@ -49,6 +49,16 @@
         <servlet-class>servlets.ProfileServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>Search</servlet-name>
+        <servlet-class>servlets.SearchServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Search</servlet-name>
+        <url-pattern>/search/*</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>Profile</servlet-name>
         <url-pattern>/profile/*</url-pattern>

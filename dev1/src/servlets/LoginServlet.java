@@ -20,7 +20,7 @@ public class LoginServlet extends HttpServlet {
             User currentUser = userService.authenticate(request);
             if (currentUser != null) {
                 userService.authorize(currentUser, request);
-                response.sendRedirect("/profile");
+                response.sendRedirect("/main");
             } else {
                 response.sendRedirect("/login?err_mess=too_bad_login");
             }
