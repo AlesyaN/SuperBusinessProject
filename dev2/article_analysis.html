@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-    	    	<div class="page-wrapper">
+    	 <div class="page-wrapper">
         	<div class="nav-wrapper sticky-top">
         		<nav class="navbar navbar-light bg-light navbar-expand">
             <nav class="navbar navbar-light bg-light justify-content-between">
@@ -26,14 +26,13 @@
                         <a href="#" class="nav-link">Log in</a>
                     </li>
                     <li class="navbar-item">
-                        <a href="#" class="nav-link">Sign in</a>
+                        <a href="#" class="nav-link">Sign up</a>
                     </li>
                     <li class="navbar-item">
                         <a href="#" class="nav-link">Profile</a>
                     </li>
                 </ul>
             </div>
-           
         </nav>
          <nav class="navbar navbar-light bg-light navbar-expand">
             <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -63,6 +62,7 @@
             <div class="row">
                 <div class="col-8 pre-scrollable">
                 	<h1>Lorem Ipsum</h1>
+                  <p>Author: <a href="">Username</a></p>
                 	<p>Что такое Lorem Ipsum?
 					Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.</p>
 
@@ -75,24 +75,35 @@
 
 					<p>Классический текст Lorem Ipsum, используемый с XVI века, приведён ниже. Также даны разделы 1.10.32 и 1.10.33 "de Finibus Bonorum et Malorum" Цицерона и их английский перевод, сделанный H. Rackham, 1914 год.</p>
 					<p>22.09.2018</p>
-					<p><a href="">Username</a></p>
-                </div>
+          <hr>
+            <a href="">Username</a>
+            <p>comment</p>
+            <p>22.10.2018</p>
+          <hr>
 
-             	<div class="col-4 pre-scrollable">
+          <div class="form-group">
+          <label for="comment">Comment:</label>
+          <textarea class="form-control" rows="5" id="comment"></textarea>
+          </div>
+
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Send comment</button>
+          </div>
+
+<!-- слева штука ----------------->
+
+             	<div class="col-4 ">
                 	<nav>
-                      <div class="nav nav-tabs position-fixed" id="nav-tab" role="tablist">
+                      <div class="nav nav-tabs navbar-fixed-top" id="nav-tab" role="tablist">
                         <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Chart 1</a>
                         <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Chart 2</a>
                         <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Chart 3</a>
                       </div>
                     </nav>
-                   
-                    <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-content pre-scrollable" id="nav-tabContent">
                       <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"><img src="img.jpg" class="img-fluid" alt="Responsive image"></div>
                       <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><img src="img.jpg" class="img-fluid" alt="Responsive image"></div>
                       <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"><img src="img.jpg" class="img-fluid" alt="Responsive image"></div>
-                    </div>
-                 <table class="table">
+                      <table class="table">
                       <thead class="thead-light">
                         <tr>
                           <th scope="col">#</th>
@@ -122,9 +133,15 @@
                         </tr>
                       </tbody>
                     </table>
+                    </div>
+
                 </div>
             </div>
+<!-- --------------------------- -->
+
      </div>
+
+</div>
 
 
     <!-- Optional JavaScript -->
