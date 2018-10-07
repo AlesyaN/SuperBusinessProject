@@ -30,6 +30,14 @@ public class SignUpServlet extends HttpServlet {
         } else {
             response.setContentType("text/html");
             PrintWriter pw = response.getWriter();
+            pw.println("<a href='/main'>Main</a>");
+            pw.print("<a href='/login'>Log In </a>");
+            pw.println("<a href='/sign-up'> Sign Up</a>");
+            pw.println("<a href='/currencies'>Currencies</a>");
+            pw.println("<a href='/stocks'>Stocks</a>");
+            pw.println("<a href='/news'>News</a>");
+            pw.println("<a href='/analysis'>Analysis</a>");
+            pw.println("<a href='/crypto'>Crypto</a>");
             pw.println("<form method='post'>" +
                     "Email:<input type='text' name='email' required><br>" +
                     "Password:<input type='password' name='password' required><br>" +
