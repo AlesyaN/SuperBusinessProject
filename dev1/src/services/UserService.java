@@ -5,6 +5,8 @@ import entities.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UserService {
     private UserDAO userDAO = new UserDAO();
@@ -16,9 +18,9 @@ public class UserService {
     }
 
     public User authenticate(HttpServletRequest request) {
-        String login = request.getParameter("login");
-        if (login != null) {
-            User user = userDAO.getUserByLogin(login);
+        String email = request.getParameter("email");
+        if (email != null) {
+            User user = userDAO.getUserByEmail(email);
             if (user == null) {
                 return null;
             }
@@ -36,5 +38,21 @@ public class UserService {
     public void authorize(User currentUser, HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute("current_user", currentUser);
+    }
+
+    public boolean register(HttpServletRequest request) {
+        if (emailIsCorrect(request.getParameter("email")) && userDAO.emailIsUnique(request.getParameter("email"))) {
+            userDAO.register(request);
+            authorize(userDAO.getUserByEmail(request.getParameter("email")), request);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean emailIsCorrect(String email) {
+        Pattern p = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(email);
+        return m.find();
     }
 }

@@ -40,14 +40,24 @@
     </servlet>
 
     <servlet>
-        <servlet-name>SignIn</servlet-name>
-        <servlet-class>servlets.SignInServlet</servlet-class>
+        <servlet-name>SignUp</servlet-name>
+        <servlet-class>servlets.SignUpServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>Profile</servlet-name>
         <servlet-class>servlets.ProfileServlet</servlet-class>
     </servlet>
+
+    <servlet>
+        <servlet-name>Search</servlet-name>
+        <servlet-class>servlets.SearchServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Search</servlet-name>
+        <url-pattern>/search/*</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>Profile</servlet-name>
@@ -56,8 +66,8 @@
 
 
     <servlet-mapping>
-        <servlet-name>SignIn</servlet-name>
-        <url-pattern>/sign-in/*</url-pattern>
+        <servlet-name>SignUp</servlet-name>
+        <url-pattern>/sign-up/*</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
         } else {
             response.setContentType("text/html");
             response.getWriter().println("<form method='post'>" +
-                    "<input type='text' name='login'><br>" +
+                    "<input type='text' name='email'><br>" +
                     "<input type='password' name='password'><br>" +
                     "<input type='submit' name='submit'>"+
                     "</form>");

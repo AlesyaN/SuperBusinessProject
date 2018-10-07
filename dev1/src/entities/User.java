@@ -15,10 +15,10 @@ public class User {
     private String education;
     private Map<String, Integer> experience;
     private String position;
-    private String login;
+    private String email;
     private String password;
 
-    public User(int id, String surname, String name, String patronymic, Date dateOfBirth, String placeOfBirth, String education, Map<String, Integer> experience, String position, String login, String password) {
+    public User(int id, String surname, String name, String patronymic, Date dateOfBirth, String placeOfBirth, String education, Map<String, Integer> experience, String position, String email, String password) {
         this.id = id;
         this.surname = surname;
         this.name = name;
@@ -28,7 +28,7 @@ public class User {
         this.education = education;
         this.experience = experience;
         this.position = position;
-        this.login = login;
+        this.email = email;
         this.password = password;
     }
 

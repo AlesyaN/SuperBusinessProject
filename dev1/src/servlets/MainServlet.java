@@ -19,7 +19,7 @@ public class MainServlet extends javax.servlet.http.HttpServlet {
             pw.println("<a href='/profile'>Profile</a>");
         } else {
             pw.print("<a href='/login'>Log In </a>");
-            pw.println("<a href='/sign-in'> Sign In</a>");
+            pw.println("<a href='/sign-up'> Sign Up</a>");
         }
         pw.println("<form method='get' action='/search'>" +
                 "<input type='text' name='search'>" +
