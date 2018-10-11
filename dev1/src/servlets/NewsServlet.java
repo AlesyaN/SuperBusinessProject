@@ -32,7 +32,6 @@ public class NewsServlet extends HttpServlet {
                 "<input type='text' name='search'>" +
                 "<input type='submit' name='submit'>" +
                 "</form>");
-
         pw.println("<a href='/main'>Main</a>");
         pw.println("<a href='/currencies'>Currencies</a>");
         pw.println("<a href='/stocks'>Stocks</a>");
@@ -40,13 +39,21 @@ public class NewsServlet extends HttpServlet {
         pw.println("<a href='/analysis'>Analysis</a>");
         pw.println("<a href='/crypto'>Crypto</a><br>");
         pw.flush();
-        List<Post> news = postService.getNews();
-        for (Post post: news) {
-            pw.print("<a href='/" + post.getTheme() + "/" + post.getId() +"'>POST #" + post.getId() +"</a><br>" +
-                    "<b>" + post.getTitle() + " by " + post.getAuthor().getName() +"</b><br>" +
+        if (request.getPathInfo() == null) {
+            List<Post> news = postService.getNews();
+            for (Post post : news) {
+                pw.print("<a href='/" + post.getTheme() + "/" + post.getId() + "'>POST #" + post.getId() + "</a><br>" +
+                        "<b>" + post.getTitle() + " by " + post.getAuthor().getName() + "</b><br>" +
+                        "<i>" + post.getDate() + "</i><br>" +
+                        "<p>" + post.getText() + "</p><br>");
+                pw.flush();
+            }
+        } else {
+            String id = request.getPathInfo().substring(1);
+            Post post = postService.getPostById(Integer.parseInt(id));
+            pw.println("<b>" + post.getTitle() + " by " + post.getAuthor().getName() + "</b><br>" +
                     "<i>" + post.getDate() + "</i><br>" +
                     "<p>" + post.getText() + "</p><br>");
-            pw.flush();
         }
     }
 }
