@@ -1,6 +1,7 @@
 package dao;
 
 import entities.Post;
+import javafx.geometry.Pos;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -41,5 +42,27 @@ public class PostDAO {
             e.printStackTrace();
         }
         return posts;
+    }
+
+    public List<Post> getNews() {
+        List<Post> posts = getPosts();
+        List<Post> news = new ArrayList<>();
+        for (Post post: posts) {
+            if (post.getTheme().equals("news")) {
+                news.add(post);
+            }
+        }
+        return news;
+    }
+
+    public List<Post> getAnalysis() {
+        List<Post> posts = getPosts();
+        List<Post> analysis = new ArrayList<>();
+        for (Post post: posts) {
+            if (post.getTheme().equals("analysis")) {
+                analysis.add(post);
+            }
+        }
+        return analysis;
     }
 }

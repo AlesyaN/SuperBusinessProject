@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class ProfileServlet extends HttpServlet {
     UserService userService = new UserService();
@@ -22,7 +23,20 @@ public class ProfileServlet extends HttpServlet {
             response.sendRedirect("/login");
         } else {
             response.setContentType("text/html");
-            response.getWriter().println(
+            PrintWriter pw = response.getWriter();
+            pw.println("<a href='/profile'>Profile</a>");
+            pw.println("<form method='get' action='/search'>" +
+                    "<input type='text' name='search'>" +
+                    "<input type='submit' name='submit'>" +
+                    "</form>");
+
+            pw.println("<a href='/main'>Main</a>");
+            pw.println("<a href='/currencies'>Currencies</a>");
+            pw.println("<a href='/stocks'>Stocks</a>");
+            pw.println("<a href='/news'>News</a>");
+            pw.println("<a href='/analysis'>Analysis</a>");
+            pw.println("<a href='/crypto'>Crypto</a><br>");
+            pw.println(
                     "<b>User #" + user.getId() + "</b><br>" +
                             "<b>Name:</b>" + user.getFullName() + "<br>" +
                             "<b>Date of birth:</b>" + user.getDateOfBirthToString() + "<br>" +

@@ -11,4 +11,12 @@ public class PostService {
     public List<Post> getMainPosts() {
         return postDAO.getMainPosts();
     }
+
+    public List<Post> getNews() {
+        return postDAO.getNews();
+    }
+
+    public List<Post> getAnalysis() {
+        return postDAO.getAnalysis();
+    }
 }

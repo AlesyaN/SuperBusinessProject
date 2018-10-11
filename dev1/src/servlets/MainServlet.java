@@ -29,6 +29,7 @@ public class MainServlet extends javax.servlet.http.HttpServlet {
                 "<input type='text' name='search'>" +
                 "<input type='submit' name='submit'>" +
                 "</form>");
+        pw.println("<a href='/main'>Main</a>");
         pw.println("<a href='/currencies'>Currencies</a>");
         pw.println("<a href='/stocks'>Stocks</a>");
         pw.println("<a href='/news'>News</a>");
