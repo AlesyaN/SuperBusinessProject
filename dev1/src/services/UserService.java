@@ -55,4 +55,14 @@ public class UserService {
         Matcher m = p.matcher(email);
         return m.find();
     }
+
+    public boolean edit(HttpServletRequest request) {
+        if (emailIsCorrect(request.getParameter("email"))
+                && userDAO.emailIsUnique(request.getParameter("email"), request)) {
+            userDAO.edit(request);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

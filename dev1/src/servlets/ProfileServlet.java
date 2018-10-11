@@ -17,6 +17,7 @@ public class ProfileServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = userService.getCurrentUser(request);
+        System.out.println("");
         if (user == null) {
             response.sendRedirect("/login");
         } else {
@@ -28,7 +29,8 @@ public class ProfileServlet extends HttpServlet {
                             "<b>Place of birth:</b>" + user.getPlaceOfBirth() + "<br>" +
                             "<b>Education:</b>" + user.getEducation() + "<br>" +
                             "<b>Experience:</b>" + user.getExperience().toString() + "<br>" +
-                            "<b>Position:</b>" + user.getPosition() + "<br>");
+                            "<b>Position:</b>" + user.getPosition() + "<br>"+
+                    "<a href='/edit-profile'>Edit</a>");
         }
     }
 }

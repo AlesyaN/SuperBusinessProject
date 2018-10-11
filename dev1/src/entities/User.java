@@ -46,7 +46,7 @@ public class User {
     }
 
     public String getDateOfBirthToString() {
-        SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.format(dateOfBirth);
     }
 
@@ -65,4 +65,21 @@ public class User {
     public String getPosition() {
         return position;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPatronymic() {
+        return patronymic;
+    }
+
 }

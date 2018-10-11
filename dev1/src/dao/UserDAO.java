@@ -1,6 +1,7 @@
 package dao;
 
 import entities.User;
+import services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
@@ -22,17 +23,17 @@ public class UserDAO {
             ResultSet rs = ps.executeQuery();
             rs.next();
             return new User(
-              rs.getInt("id"),
-              rs.getString("surname"),
-              rs.getString("name"),
-              rs.getString("patronymic"),
-              rs.getDate("date_of_birth"),
-              rs.getString("place_of_birth"),
-              rs.getString("education"),
-              getExperienceByUserId(rs.getInt("id")),
-              rs.getString("position"),
-              rs.getString("email"),
-              rs.getString("password")
+                    rs.getInt("id"),
+                    rs.getString("surname"),
+                    rs.getString("name"),
+                    rs.getString("patronymic"),
+                    rs.getDate("date_of_birth"),
+                    rs.getString("place_of_birth"),
+                    rs.getString("education"),
+                    getExperienceByUserId(rs.getInt("id")),
+                    rs.getString("position"),
+                    rs.getString("email"),
+                    rs.getString("password")
             );
         } catch (SQLException e) {
             e.printStackTrace();
@@ -48,7 +49,7 @@ public class UserDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 experience.put(getScopeById(rs.getInt("scope_id")),
-                               rs.getInt("experience"));
+                        rs.getInt("experience"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -109,8 +110,8 @@ public class UserDAO {
     }
 
     public void register(HttpServletRequest request) {
-            insertIntoUser(request);
-            insertIntoSE(request);
+        insertIntoUser(request);
+        insertIntoSE(request);
     }
 
     private void insertIntoSE(HttpServletRequest request) {
@@ -119,8 +120,8 @@ public class UserDAO {
                     "scope_experience(user_id, experience, scope_id) " +
                     "values(?,?,?)");
             int i = 1;
-            while (!request.getParameter("scope" + i).equals("")) {
-                ps.setInt(1, getUserByEmail(request.getParameter("email")).getId());
+            while (request.getParameter("scope" + i) != null && !request.getParameter("scope" + i).equals("")) {
+                ps.setInt(1, (new UserService()).getCurrentUser(request).getId());
                 ps.setInt(2, Integer.parseInt(request.getParameter("experience" + i)));
                 ps.setInt(3, getScopeIdByName(request.getParameter("scope" + i)));
                 ps.execute();
@@ -180,5 +181,73 @@ public class UserDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public boolean emailIsUnique(String email, HttpServletRequest request) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from \"user\" where email=?");
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.isBeforeFirst()) {
+                return true;
+            }
+            rs.next();
+            if (rs.getString("email").equals((new UserService().getCurrentUser(request).getEmail()))) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void edit(HttpServletRequest request) {
+        editUser(request);
+        editScopeExp(request);
+    }
+
+    private void editScopeExp(HttpServletRequest request) {
+        PreparedStatement ps = null;
+        try {
+            ps = connection.prepareStatement("delete from scope_experience where user_id="
+                    + (new UserService()).getCurrentUser(request).getId());
+            ps.execute();
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        insertIntoSE(request);
+    }
+
+    public void editUser(HttpServletRequest request) {
+        List<String> params = new ArrayList<>();
+        params.add("email");
+        params.add("password");
+        params.add("name");
+        params.add("surname");
+        params.add("patronymic");
+        params.add("date_of_birth");
+        params.add("place_of_birth");
+        params.add("education");
+        params.add("position");
+        try {
+            String statement1  = "update \"user\" set ";
+            String statement2 = "=? where id=?";
+            PreparedStatement ps = null;
+            for (String param : params) {
+                ps = connection.prepareStatement(statement1 + param + statement2);
+                String value = request.getParameter(param);
+                if (!request.getParameter(param).equals("") && request.getParameter(param) != null) {
+                    if (param.equals("date_of_birth")) {
+                        ps.setDate(1, java.sql.Date.valueOf(value));
+                    } else {
+                        ps.setString(1, value);
+                    }
+                    ps.setInt(2, (new UserService()).getCurrentUser(request).getId());
+                    ps.execute();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
