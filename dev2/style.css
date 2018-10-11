@@ -2,8 +2,14 @@ html, body {
  	height: 100%;
 }
 div.row {
-	border: 1px solid silver;
+	/*border: 1px solid silver;*/
 }
 .news-wrapper {
 	height: 100%;
+}
+.stocks-wrapper {
+	padding-bottom: 10px;
+}
+.nav-wrapper {
+	padding-bottom: 10px;
 }
