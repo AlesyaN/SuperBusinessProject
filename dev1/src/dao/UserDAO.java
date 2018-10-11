@@ -250,4 +250,29 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
+
+    public User getUserById(int id) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from \"user\" where id=?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            return new User(
+                    rs.getInt("id"),
+                    rs.getString("surname"),
+                    rs.getString("name"),
+                    rs.getString("patronymic"),
+                    rs.getDate("date_of_birth"),
+                    rs.getString("place_of_birth"),
+                    rs.getString("education"),
+                    getExperienceByUserId(rs.getInt("id")),
+                    rs.getString("position"),
+                    rs.getString("email"),
+                    rs.getString("password")
+            );
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
