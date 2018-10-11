@@ -19,4 +19,8 @@ public class PostService {
     public List<Post> getAnalysis() {
         return postDAO.getAnalysis();
     }
+
+    public Post getPostById(int id) {
+        return postDAO.getPostById(id);
+    }
 }

@@ -65,4 +65,24 @@ public class PostDAO {
         }
         return analysis;
     }
+
+    public Post getPostById(int id) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from news where id=?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            return new Post(
+                    rs.getInt("id"),
+                    userDAO.getUserById(rs.getInt("author_id")),
+                    rs.getString("title"),
+                    rs.getString("text"),
+                    rs.getDate("date"),
+                    rs.getString("theme")
+            );
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
