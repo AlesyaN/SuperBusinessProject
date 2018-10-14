@@ -4,7 +4,7 @@ html, body {
 div.row {
 	/*border: 1px solid silver;*/
 }
-.news-wrapper {
+.container-fluid {
 	height: 100%;
 }
 .stocks-wrapper {
@@ -13,3 +13,10 @@ div.row {
 .nav-wrapper {
 	padding-bottom: 10px;
 }
+.right-col {
+	height: 100%
+}
+
+.field {
+        display: block;
+      }

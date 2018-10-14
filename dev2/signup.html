@@ -8,6 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="style.css">
+        <script type="text/javascript" src="script.js"></script>
     </head>
     <body>
 
@@ -34,6 +35,9 @@
                     </li>
                 </ul>
             </div>
+
+
+
         </nav>
          <nav class="navbar navbar-light bg-light navbar-expand">
             <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -59,41 +63,41 @@
     	</div>
         <div>
             <form>
-              <div class="container">
-                <p>To have more options you should fill all the fields!</p>
-                <table>
-                    <tr>
-                        <td>
-                            <label for="email"><b>Email*</b></label><br>
-                            <label for="username"><b>Username*</b></label><br>
-                            <label for="firstname"><b>First Name</b></label><br>
-                            <label for="lastname"><b>Last Name</b></label><br>
-                            <label for="birthdate"><b>Birth Date</b></label><br>
-                            <label for="birthplace"><b>Birth Place</b></label><br>
-                            <label for="edu"><b>Education</b></label><br>
-                            <label for="scope"><b>Scope Of Work</b></label><br>
-                            <label for="company"><b>Company Where You Work</b></label><br>
-                            <label for="password"><b>Password*</b></label><br>
-                            <label for="repeat-password"><b>Repeat password*</b></label>
+                <div class="container" id="inputs_container">
+                    
+                    <p>To have more options you should fill all the fields!</p>
+                
+                    <script>
+                        inputFields.forEach((value, key, map) => {
+                            createInput(key, value, htmlForInput);
+                        });
+                    </script>
 
-                        </td>
-                        <td>
-                            <input type="text" placeholder="Enter Email" name="email"><br>
-                            <input type="text" placeholder="Enter Username" name="username"><br>
-                            <input type="text" placeholder="Enter First Name" name="firstname"><br>
-                            <input type="text" placeholder="Enter Last Name" name="lastname"><br>
-                            <input type="text" placeholder="Enter Birth Date" name="birthdate"><br>
-                            <input type="text" placeholder="Enter Birth Place" name="birthplace"><br>
-                            <input type="text" placeholder="Enter Education" name="edu"><br>
-                            <input type="text" placeholder="Enter Scope Of Work" name="scope"><br>
-                            <input type="text" placeholder="Enter Company Name" name="company"><br>
-                            <input type="password" placeholder="Enter Password" name="password" required><br>
-                            <input type="password" placeholder="Repeat Password" name="repeat-password" required><br>
+                   <div class="row">
+                        <div class="col"><label for="experience_1"><b>Your Work Experience</b></label></div>
+                        <div class="col">
+                            <input class="experience" id="experience_1" name="experience_1" placeholder="Enter Company Name">
+                            <input class="time" id="time_1" name="time_1" placeholder="Enter Time Period">
+                        </div>
+                    </div>
+                </div>
 
-                        </td>
-                    </tr>
-                </table>
-            <button type="submit">Sign up</button>
+                
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col">
+                        <button onclick="createExperience()">Add experience</button>    
+                    </div>
+                </div>
+
+                
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col">
+                        <button type="submit">Sign up</button>
+                    </div>
+                </div>
+
             </form>      
          </div>
 	</div>
