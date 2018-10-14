@@ -19,7 +19,14 @@ public class AnalysisServlet extends HttpServlet {
     UserService userService = new UserService();
     CommentService commentService = new CommentService();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String postId = request.getPathInfo().substring(1);
+        if (!postId.equals("")) {
+            String text = request.getParameter("text");
+            if (text != null && !text.equals("")) {
+                commentService.saveComment(request);
+                response.sendRedirect("/news/" + postId);
+            }
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -65,11 +72,13 @@ public class AnalysisServlet extends HttpServlet {
                     pw.println(comment.getText() + "<br>");
                 }
             }
-            pw.println("Your comment: <br>" +
-                    "<form method='post'>" +
-                    "<textarea rows='4' name='text'></textarea><br>" +
-                    "<input type='submit' name='submit'>" +
-                    "</form>");
+            if (userService.getCurrentUser(request) != null) {
+                pw.println("Your comment: <br>" +
+                        "<form method='post'>" +
+                        "<textarea rows='4' name='text'></textarea><br>" +
+                        "<input type='submit' name='submit'>" +
+                        "</form>");
+            }
         }
     }
 }

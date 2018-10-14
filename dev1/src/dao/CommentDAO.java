@@ -2,18 +2,22 @@ package dao;
 
 import entities.Comment;
 import entities.Post;
+import services.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CommentDAO {
     Connection connection = ConnectionSingleton.getConnection();
     UserDAO userDAO = new UserDAO();
     PostDAO postDAO = new PostDAO();
+    UserService userService = new UserService();
 
     public List<Comment> getCommentsByPost(Post post) {
         try {
@@ -35,5 +39,18 @@ public class CommentDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void saveComment(Integer authorId, Integer newsId, String text) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("insert into comment (author_id, news_id, text, \"date\")" +
+                    " values(?,?,?, 'now')");
+            ps.setInt(1, authorId);
+            ps.setInt(2, newsId);
+            ps.setString(3,  text);
+            ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
