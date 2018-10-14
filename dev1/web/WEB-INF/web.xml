@@ -54,6 +54,16 @@
         <servlet-class>servlets.SearchServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>Edit</servlet-name>
+        <servlet-class>servlets.EditProfileServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Edit</servlet-name>
+        <url-pattern>/edit-profile/*</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>Search</servlet-name>
         <url-pattern>/search/*</url-pattern>
