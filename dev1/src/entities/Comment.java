@@ -16,4 +16,24 @@ public class Comment {
         this.date = date;
         this.text = text;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public String getText() {
+        return text;
+    }
 }

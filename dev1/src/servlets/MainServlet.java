@@ -1,6 +1,8 @@
 package servlets;
 
+import entities.Comment;
 import entities.Post;
+import services.CommentService;
 import services.PostService;
 import services.UserService;
 
@@ -11,7 +13,7 @@ import java.util.List;
 public class MainServlet extends javax.servlet.http.HttpServlet {
     UserService userService = new UserService();
     PostService postService = new PostService();
-
+    CommentService commentService = new CommentService();
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
 
     }
@@ -41,7 +43,7 @@ public class MainServlet extends javax.servlet.http.HttpServlet {
             pw.print("<a href='/" + post.getTheme() + "/" + post.getId() +"'>POST #" + post.getId() +" from " + post.getTheme() +"</a><br>" +
             "<b>" + post.getTitle() + " by " + post.getAuthor().getName() +"</b><br>" +
             "<i>" + post.getDate() + "</i><br>" +
-            "<p>" + post.getText() + "</p><br>");
+            "<p>" + post.getText() + "</p>");
             pw.flush();
         }
     }

@@ -1,6 +1,8 @@
 package servlets;
 
+import entities.Comment;
 import entities.Post;
+import services.CommentService;
 import services.PostService;
 import services.UserService;
 
@@ -15,6 +17,7 @@ import java.util.List;
 public class NewsServlet extends HttpServlet {
     PostService postService = new PostService();
     UserService userService = new UserService();
+    CommentService commentService = new CommentService();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -54,6 +57,19 @@ public class NewsServlet extends HttpServlet {
             pw.println("<b>" + post.getTitle() + " by " + post.getAuthor().getName() + "</b><br>" +
                     "<i>" + post.getDate() + "</i><br>" +
                     "<p>" + post.getText() + "</p><br>");
+            List<Comment> comments = commentService.getCommentsByPost(post);
+            if (comments.size() > 0) {
+                pw.println("  Comments: <br>");
+                for (Comment comment : comments) {
+                    pw.println(comment.getAuthor().getName() + " on " + comment.getDate() + "<br>");
+                    pw.println(comment.getText() + "<br>");
+                }
+            }
+            pw.println("Your comment: <br>" +
+                    "<form method='post'>" +
+                    "<textarea rows='4' name='text'></textarea><br>" +
+                    "<input type='submit' name='submit'>" +
+                    "</form>");
         }
     }
 }
