@@ -63,42 +63,158 @@
 
         <div class="row align-items-center">
             <div class="col">
-            <form>
-                <div class="container" id="inputs_container">
+                
                     <p>To have more options you should fill all the fields!</p>
-                
-                    <script>
-                        inputFields.forEach((value, key, map) => {
-                            createInput(key, value, htmlForInput);
-                        });
-                    </script>
 
-                   <div class="row">
-                        <div class="col"><label for="experience_1"><b>Your Work Experience</b></label></div>
-                        <div class="col">
-                            <input class="experience" id="experience_1" name="experience_1" placeholder="Enter Company Name">
-                            <input class="time" id="time_1" name="time_1" placeholder="Enter Time Period">
-                        </div>
+            <form>
+                
+                
+                <div class="form-group row">
+                    <div class="col-2"></div>
+                    <label for="login" class="col-3 col-form-label">Login*</label>
+                    <div class="col-5">
+                    <input type="text" class="form-control" id="login" placeholder="Login" required>
                     </div>
-                </div>
+                    <div class="col-2"></div>
+                  </div>
+                <div class="form-group row">
+                    <div class="col-2"></div>
+                    <label for="email" class="col-3 col-form-label">Email*</label>
+                    <div class="col-5">
+                    <input type="email" class="form-control" id="email" placeholder="Email" required>
+                    </div>
+                    <div class="col-2"></div>
+                  </div>
 
-                
-                <div class="row">
+                  <div class="form-group row">
+                    <div class="col-2"></div>
+                    <label for="password" class="col-3 col-form-label">Password*</label>
+                    <div class="col-5">
+                    <input type="email" class="form-control" id="password" placeholder="Password" required>
+                    </div>
+                    <div class="col-2"></div>
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="col-2"></div>
+                    <label for="repeat_password" class="col-3 col-form-label">Repeat password*</label>
+                    <div class="col-5">
+                    <input type="email" class="form-control" id="repeat_password" placeholder="Repeat password" required>
+                    </div>
+                    <div class="col-2"></div>
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="col-2"></div>
+                    <label for="firstname" class="col-3 col-form-label">First name</label>
+                    <div class="col-5">
+                    <input type="text" class="form-control" id="firstname" placeholder="First name">
+                    </div>
+                    <div class="col-2"></div>
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="col-2"></div>
+                    <label for="lastname" class="col-3 col-form-label">Last name</label>
+                    <div class="col-5">
+                    <input type="text" class="form-control" id="lastname" placeholder="Last name">
+                    </div>
+                    <div class="col-2"></div>
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="col-2"></div>
+                    <label for="birthdate" class="col-3 col-form-label">Birth date</label>
+                    <div class="col-5">
+                    <input type="text" class="form-control" id="birthdate" placeholder="Birth date">
+                    </div>
+                    <div class="col-2"></div>
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="col-2"></div>
+                    <label for="birthplace" class="col-3 col-form-label">Birth place</label>
+                    <div class="col-5">
+                    <input type="text" class="form-control" id="birthplace" placeholder="Birth place">
+                    </div>
+                    <div class="col-2"></div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-2"></div>
+                    <label for="edu" class="col-3 col-form-label">Education</label>
+                    <div class="col-5">
+                    <input type="text" class="form-control" id="edu" placeholder="Education">
+                    </div>
+                    <div class="col-2"></div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-2"></div>
+                    <label for="scope" class="col-3 col-form-label">Scope of work</label>
+                    <div class="col-5">
+                    <input type="text" class="form-control" id="scope" placeholder="Scope">
+                    </div>
+                    <div class="col-2"></div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-2"></div>
+                    <label for="company" class="col-3 col-form-label">Company</label>
+                    <div class="col-5">
+                    <input type="text" class="form-control" id="company" placeholder="Company">
+                    </div>
+                    <div class="col-2"></div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-2"></div>
+                    <label for="position" class="col-3 col-form-label">Position</label>
+                    <div class="col-5">
+                    <input type="text" class="form-control" id="position" placeholder="Position">
+                    </div>
+                    <div class="col-2"></div>
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="col-2"></div>
+                    <label for="experience" class="col-3 col-form-label">Work experience</label>
+                    <div class="col-3">
+                    <input type="text" class="form-control" id="experience" placeholder="Company">
+                    </div>
+                    <div class="col-2">
+                    <input type="text" class="form-control" id="time" placeholder="Time period">
+                    </div>
+                    <div class="col-2"></div>
+                  </div>
+
+                  <div class="container" id="inputs_container">
+                  </div>
+                  <div id="form-inside">
+                  </div>
+                    <div class=" form-group row">
                     <div class="col"></div>
                     <div class="col">
                         <button onclick="createExperience()">Add experience</button>    
                     </div>
                 </div>
 
-                
-                <div class="row">
-                    <div class="col"></div>
-                    <div class="col">
-                        <button type="submit">Sign up</button>
+
+                  
+                  <div class="form-group row">
+                    <div class="col-2"></div>
+                    <div class="col-sm-8">
+                      <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
+                    <div class="col-2"></div>
+
+                  </div>
+        
+
+
+                </form>
                 </div>
 
-            </form>  
+                
+                
+
+ 
             </div>    
          </div>
 	</div>
