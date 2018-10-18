@@ -5,22 +5,22 @@ const createExperience = () => {
 }
 
 let inputFields = new Map([
-    ['email', 'text'],
-    ['username', 'text'],
-    ['firstname', 'text'],
-    ['lastname', 'text'],
-    ['birthdate', 'text'],
-    ['birthplace', 'text'],
-    ['edu', 'text'],
-    ['scope', 'text'], 
-    ['company', 'text'],
-    ['position', 'text'],
-    ['password', 'password'],
-    ['repeat_password', 'password'],       
+    ['Email', 'text'],
+    ['Username', 'text'],
+    ['Firstname', 'text'],
+    ['Lastname', 'text'],
+    ['Birthdate', 'text'],
+    ['Birthplace', 'text'],
+    ['Edu', 'text'],
+    ['Scope', 'text'], 
+    ['Company', 'text'],
+    ['Position', 'text'],
+    ['Password', 'password'],
+    ['Repeat password', 'password'],       
 ]);
 
 //now what to do with it 
-let fieldsWithRequired = ['email', 'username', 'password', 'repeat_password'];
+let fieldsWithRequired = ['Email', 'Username', 'Password', 'Repeat password'];
 
 // now we can delete all fields in sighup html
 
@@ -49,6 +49,14 @@ const htmlForExperience = (number) => {
 
 const htmlForInput = (name, type, required) => {
     let id = `${name}_input`;
+    if (name == 'Repeat password') {
+        return `<div class="col">
+                <label for="${id}"><b>${name} ${required ? '*' : ''}</b></label>
+            </div>
+            <div class="col">
+                <input id="${id}" type="${type}" placeholder="Repeat Password" name="${name}" ${required ? 'required' : ''}>
+            </div>`;
+    }
     return `<div class="col">
                 <label for="${id}"><b>${name} ${required ? '*' : ''}</b></label>
             </div>

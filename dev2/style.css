@@ -23,3 +23,11 @@ div.row {
 .field {
     display: block;
 }
+
+.login-wrapper {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
