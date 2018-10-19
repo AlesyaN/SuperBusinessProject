@@ -8,6 +8,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+
     </head>
     <body>
          <div class="page-wrapper">
@@ -61,14 +63,24 @@
     </div>
 
         <div class="settings">
-
+<form>
+              <div class="form-group row">
+                <div class="col-2"></div>
+                <div class="col-8">
+                    <label for="exampleFormControlFile1">You can change your profile pic:</label>
+                <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                </div>
+                
+                <div class="col-2"></div>
+              </div>
+            </form>
 
             <form>
                   <div class="form-group row">
                     <div class="col-2"></div>
                     <label for="inputEmail3" class="col-3 col-form-label">Change first name</label>
                     <div class="col-5">
-                    <input type="email" class="form-control" id="inputEmail3" placeholder="First name">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="First name" value="Old name here">
                     </div>
                     <div class="col-2"></div>
                   </div>
@@ -76,7 +88,7 @@
                     <div class="col-2"></div>
                     <label for="inputEmail3" class="col-3 col-form-label">Change last name</label>
                     <div class="col-5">
-                    <input type="email" class="form-control" id="inputEmail3" placeholder="Last name">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Last name" value="Old last name here">
                     </div>
                     <div class="col-2"></div>
                   </div>
@@ -84,7 +96,7 @@
                     <div class="col-2"></div>
                     <label for="inputEmail3" class="col-3 col-form-label">Change birth date</label>
                     <div class="col-5">
-                    <input type="email" class="form-control" id="inputEmail3" placeholder="Birth date">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Birth date" value="Old birth date">
                     </div>
                     <div class="col-2"></div>
                   </div>
@@ -92,7 +104,7 @@
                     <div class="col-2"></div>
                     <label for="inputEmail3" class="col-3 col-form-label">Change birth place</label>
                     <div class="col-5">
-                    <input type="email" class="form-control" id="inputEmail3" placeholder="Birth place">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Birth place" value="old birth place">
                     </div>
                     <div class="col-2"></div>
                   </div>
@@ -100,7 +112,7 @@
                     <div class="col-2"></div>
                     <label for="inputEmail3" class="col-3 col-form-label">Change education</label>
                     <div class="col-5">
-                    <input type="email" class="form-control" id="inputEmail3" placeholder="Education">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Education" value="old edu">
                     </div>
                     <div class="col-2"></div>
                   </div>
@@ -108,7 +120,7 @@
                     <div class="col-2"></div>
                     <label for="inputEmail3" class="col-3 col-form-label">Change scope of work</label>
                     <div class="col-5">
-                    <input type="email" class="form-control" id="inputEmail3" placeholder="Scope">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Scope" value="old scope">
                     </div>
                     <div class="col-2"></div>
                   </div>
@@ -116,7 +128,7 @@
                     <div class="col-2"></div>
                     <label for="inputEmail3" class="col-3 col-form-label">Change company</label>
                     <div class="col-5">
-                    <input type="email" class="form-control" id="inputEmail3" placeholder="Company">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Company" value="old company">
                     </div>
                     <div class="col-2"></div>
                   </div>
@@ -124,14 +136,14 @@
                     <div class="col-2"></div>
                     <label for="inputEmail3" class="col-3 col-form-label">Change position</label>
                     <div class="col-5">
-                    <input type="email" class="form-control" id="inputEmail3" placeholder="Position">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Position" value="old position">
                     </div>
                     <div class="col-2"></div>
                   </div>
                   <div class="form-group row">
                     <div class="col-2"></div>
                     <label for="inputEmail3" class="col-3 col-form-label">Add work experience</label>
-                    <div class="col-2">
+                    <div class="col-3">
                     <input type="email" class="form-control" id="inputEmail3" placeholder="Company">
                     </div>
                     <div class="col-2">
@@ -139,7 +151,16 @@
                     </div>
                     <div class="col-2"></div>
                   </div>
-                  
+                  <div class="container" id="inputs_container">
+                  </div>
+                  <div id="form-inside">
+                  </div>
+                    <div class=" form-group row">
+                    <div class="col"></div>
+                    <div class="col">
+                        <button onclick="createExperience()">Add experience</button>    
+                    </div>
+                </div>
                   <div class="form-group row">
                     <div class="col-2"></div>
                     <div class="col-sm-8">
@@ -152,17 +173,7 @@
 
 
 
-            <form>
-              <div class="form-group row">
-                <div class="col-2"></div>
-                <div class="col-8">
-                    <label for="exampleFormControlFile1">You can change your profile pic:</label>
-                <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                </div>
-                
-                <div class="col-2"></div>
-              </div>
-            </form>
+            
                
          </div>
 	</div>
