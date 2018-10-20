@@ -68,118 +68,123 @@
 
             <form>
                 <div class="form-group row">
-                    <div class="col-2"></div>
-                    <label for="login" class="col-3 col-form-label">Login*</label>
-                    <div class="col-5">
-                    <input type="text" class="form-control" id="login" placeholder="Login" required>
+                    <div class="col-3"></div>
+                    <label for="login" class="col-2 col-form-label">Login*</label>
+                    <div class="col-4">
+                    <input type="text" class="form-control" id="login" placeholder="Login" required onblur="validateForm('login', /[a-zA-Z][0-9a-zA-Z]{4,15}/, 'login_msg', 'Login should contain only characters A-Z, a-z and digits and length 5-16')">
+                    <div id="login_msg"></div>
                     </div>
-                    <div class="col-2"></div>
+                    <div class="col-3"></div>
                   </div>
+
                 <div class="form-group row">
-                    <div class="col-2"></div>
-                    <label for="email" class="col-3 col-form-label">Email*</label>
-                    <div class="col-5">
-                    <input type="email" class="form-control" id="email" placeholder="Email" required>
+                    <div class="col-3"></div>
+                    <label for="email" class="col-2 col-form-label">Email*</label>
+                    <div class="col-4">
+                    <input type="text" class="form-control" id="email" placeholder="Email" required required onblur="validateForm('email', /[a-zA-Z][0-9a-zA-Z.]*@([a-zA-Z][0-9a-zA-Z]+\.)+[a-zA-Z]+/, 'email_msg', 'Email should be like example123@mail.com')">
+                    <div id="email_msg"></div>
                     </div>
-                    <div class="col-2"></div>
+                    <div class="col-3"></div>
                   </div>
 
                   <div class="form-group row">
-                    <div class="col-2"></div>
-                    <label for="password" class="col-3 col-form-label">Password*</label>
-                    <div class="col-5">
-                    <input type="email" class="form-control" id="password" placeholder="Password" required>
+                    <div class="col-3"></div>
+                    <label for="password" class="col-2 col-form-label">Password*</label>
+                    <div class="col-4">
+                    <input type="password" class="form-control" id="password" placeholder="Password" required onblur="validateForm('password', /[0-9a-zA-Z!@#$%^&*()+-_=]{8,16}/, 'password_msg', 'Password should contain only characters A-Z, a-z, digits, special symbols: !@#$%^&*()+-_= and length 8-16')">
+                    <div id="password_msg"></div>
                     </div>
-                    <div class="col-2"></div>
+                    <div class="col-3"></div>
                   </div>
 
                   <div class="form-group row">
-                    <div class="col-2"></div>
-                    <label for="repeat_password" class="col-3 col-form-label">Repeat password*</label>
-                    <div class="col-5">
-                    <input type="email" class="form-control" id="repeat_password" placeholder="Repeat password" required>
+                    <div class="col-3"></div>
+                    <label for="repeat_password" class="col-2 col-form-label">Repeat password*</label>
+                    <div class="col-4">
+                    <input type="password" class="form-control" id="repeat_password" placeholder="Repeat password" required onblur="repeatPassword()">
+                    <div id="repeat_password_msg"></div>
                     </div>
-                    <div class="col-2"></div>
+                    <div class="col-3"></div>
                   </div>
 
                   <div class="form-group row">
-                    <div class="col-2"></div>
-                    <label for="firstname" class="col-3 col-form-label">First name</label>
-                    <div class="col-5">
+                    <div class="col-3"></div>
+                    <label for="firstname" class="col-2 col-form-label">First name</label>
+                    <div class="col-4">
                     <input type="text" class="form-control" id="firstname" placeholder="First name">
                     </div>
-                    <div class="col-2"></div>
+                    <div class="col-3"></div>
                   </div>
 
                   <div class="form-group row">
-                    <div class="col-2"></div>
-                    <label for="lastname" class="col-3 col-form-label">Last name</label>
-                    <div class="col-5">
+                    <div class="col-3"></div>
+                    <label for="lastname" class="col-2 col-form-label">Last name</label>
+                    <div class="col-4">
                     <input type="text" class="form-control" id="lastname" placeholder="Last name">
                     </div>
-                    <div class="col-2"></div>
+                    <div class="col-3"></div>
                   </div>
 
                   <div class="form-group row">
-                    <div class="col-2"></div>
-                    <label for="birthdate" class="col-3 col-form-label">Birth date</label>
-                    <div class="col-5">
+                    <div class="col-3"></div>
+                    <label for="birthdate" class="col-2 col-form-label">Birth date</label>
+                    <div class="col-4">
                     <input type="text" class="form-control" id="birthdate" placeholder="Birth date">
                     </div>
-                    <div class="col-2"></div>
+                    <div class="col-3"></div>
                   </div>
 
                   <div class="form-group row">
-                    <div class="col-2"></div>
-                    <label for="birthplace" class="col-3 col-form-label">Birth place</label>
-                    <div class="col-5">
+                    <div class="col-3"></div>
+                    <label for="birthplace" class="col-2 col-form-label">Birth place</label>
+                    <div class="col-4">
                     <input type="text" class="form-control" id="birthplace" placeholder="Birth place">
                     </div>
-                    <div class="col-2"></div>
+                    <div class="col-3"></div>
                   </div>
                   <div class="form-group row">
-                    <div class="col-2"></div>
-                    <label for="edu" class="col-3 col-form-label">Education</label>
-                    <div class="col-5">
+                    <div class="col-3"></div>
+                    <label for="edu" class="col-2 col-form-label">Education</label>
+                    <div class="col-4">
                     <input type="text" class="form-control" id="edu" placeholder="Education">
                     </div>
-                    <div class="col-2"></div>
+                    <div class="col-3"></div>
                   </div>
                   <div class="form-group row">
-                    <div class="col-2"></div>
-                    <label for="scope" class="col-3 col-form-label">Scope of work</label>
-                    <div class="col-5">
+                    <div class="col-3"></div>
+                    <label for="scope" class="col-2 col-form-label">Scope of work</label>
+                    <div class="col-4">
                     <input type="text" class="form-control" id="scope" placeholder="Scope">
                     </div>
-                    <div class="col-2"></div>
+                    <div class="col-3"></div>
                   </div>
                   <div class="form-group row">
-                    <div class="col-2"></div>
-                    <label for="company" class="col-3 col-form-label">Company</label>
-                    <div class="col-5">
+                    <div class="col-3"></div>
+                    <label for="company" class="col-2 col-form-label">Company</label>
+                    <div class="col-4">
                     <input type="text" class="form-control" id="company" placeholder="Company">
                     </div>
-                    <div class="col-2"></div>
+                    <div class="col-3"></div>
                   </div>
                   <div class="form-group row">
-                    <div class="col-2"></div>
-                    <label for="position" class="col-3 col-form-label">Position</label>
-                    <div class="col-5">
+                    <div class="col-3"></div>
+                    <label for="position" class="col-2 col-form-label">Position</label>
+                    <div class="col-4">
                     <input type="text" class="form-control" id="position" placeholder="Position">
                     </div>
-                    <div class="col-2"></div>
+                    <div class="col-3"></div>
                   </div>
 
                   <div class="form-group row">
-                    <div class="col-2"></div>
-                    <label for="experience" class="col-3 col-form-label">Work experience</label>
-                    <div class="col-3">
+                    <div class="col-3"></div>
+                    <label for="experience" class="col-2 col-form-label">Work experience</label>
+                    <div class="col-2">
                     <input type="text" class="form-control" id="experience" placeholder="Company">
                     </div>
                     <div class="col-2">
                     <input type="text" class="form-control" id="time" placeholder="Time period">
                     </div>
-                    <div class="col-2"></div>
+                    <div class="col-3"></div>
                   </div>
 
                   <div class="container" id="inputs_container">
@@ -192,27 +197,15 @@
                         <button onclick="createExperience()">Add experience</button>    
                     </div>
                 </div>
-
-
-                  
                   <div class="form-group row">
-                    <div class="col-2"></div>
-                    <div class="col-sm-8">
-                      <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="col-3"></div>
+                    <div class="col-sm-6">
+                      <button type="submit" class="btn btn-primary" id="submit" onclick="validateForm()">Submit</button>
                     </div>
-                    <div class="col-2"></div>
-
+                    <div class="col-3"></div>
                   </div>
-        
-
-
                 </form>
                 </div>
-
-                
-                
-
- 
             </div>    
          </div>
 	</div>
