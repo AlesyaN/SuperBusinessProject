@@ -8,7 +8,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="style.css">
-
+        <script src="static/jquery-3.3.1.min.js" defer></script>
+        <script src="comments.js"></script>
     </head>
     <body>
     	 <div class="page-wrapper">
@@ -88,14 +89,20 @@
           <button class="btn btn-danger">Delete post</button>
           <button class="btn btn-primary">Edit post</button>
           <hr>
-          <div class="comment-wrapper">
+          <div class="comments-list">
+          <div class="comment-item">
+          
             <a href="">Username</a>
             <p>comment</p>
             <small>22.10.2018</small>
+            
             <br>
             <button class="btn btn-danger">Delete comment</button>
             <button class="btn btn-primary">Edit comment</button>
             <hr>
+
+          </div>
+        </div>
           </div>
                <form class="form-group comment">
                     <label for="comment">Comment:</label>

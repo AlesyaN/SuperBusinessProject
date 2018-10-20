@@ -8,6 +8,9 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="style.css">
+        <script src="static/jquery-3.3.1.min.js" defer></script>
+        <script src="search.js"></script>
+
     </head>
     <body>
          <div class="page-wrapper">
@@ -75,23 +78,32 @@
                             <div class="col-2"></div>
                             <div class="col-8">
                             <form class="form-group">
-                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                            <input class="form-control mr-sm-2" id="search-box" type="text" placeholder="Search" aria-label="Search" oninput="autoComplete('search-box')">
                             <button class="btn btn-outline-success my-2 my-sm-1" type="submit">Search</button>
                             </form>
                             </div>
                             <div class="col-2"></div>
                         </div>
-                            <div class="row">
-                                <div class="col-4">
-                                <img src="pic.jpeg" width="100px" height="100px" alt="Responsive image">
+
+                        <!-- search results -->
+                        <div class="search-list">
+                            <div class="article-item">
+                                <div class="row">
+                                    <div class="col-4">
+                                    <img src="pic.jpeg" width="100px" height="100px" alt="Responsive image">
+                                    </div>
+                                    <div class="col-8">
+                                        <h3>Heading</h3>
+                                        <p>Text</p>
+                                        <a href="">More</a>
+                                    </div>
                                 </div>
-                                <div class="col-8">
-                                    <h3>Heading</h3>
-                                    <p>Text</p>
-                                    <a href="">More</a>
-                                </div>
+                                <hr>
                             </div>
-                            <hr>
+                        </div>
+                        <!--  -->
+
+
                           </div>
                         </div>
                     </div>
