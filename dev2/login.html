@@ -11,13 +11,15 @@
     </head>
     <body>
          <div class="page-wrapper">
-                      <!-- navbar -->
+          <!-- navbar -->
           <div class="nav-wrapper fixed-top">
+
           <nav class="navbar navbar-light bg-light navbar-expand navbar-fixed-top">
-              <nav class="navbar navbar-light bg-light justify-content-between">
-                <div class="col-1"></div>
-              <a href="#" class="navbar-brand">Logo</a>
+            <div class="col-1"></div>
+
+              <nav class="navbar navbar-light bg-light justify-content-end">
                <form class="form-inline">
+                <a href="#" class="navbar-brand">Logo</a>
                     <input class="form-inline mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
@@ -30,31 +32,37 @@
                         <li class="nav-item">
                             <a href="#" class="nav-link">Stocks</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">News</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">Analysis</a>
+                        <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Articles
+                          </a>
+                          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">News</a>
+                            <a class="dropdown-item" href="#">Analysis</a>
+                          </div>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">Crypto</a>
                         </li>
                       </ul>
-                    <div class="col-1"></div>
+                    <div class="col-2"></div>
+
                     <ul class="nav nav-pills justify-content-end">
+                      <li class="nav-item">
+                            <a href="#" class="nav-link">Profile</a>
+                        </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link active">Log in</a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">Sign up</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">Profile</a>
-                        </li>
+                        
                     </ul>
-                    <div class="col-1"></div>
 
                 </div>
+                    <div class="col-1"></div>
+                
             </nav>
          </div>
          <!-- end of navbar -->
