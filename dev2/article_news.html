@@ -8,6 +8,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+
     </head>
     <body>
     	 <div class="page-wrapper">
@@ -92,15 +94,16 @@
             <button class="btn btn-primary">Edit comment</button>
             <hr>
           </div>
+               <form class="form-group comment">
+                    <label for="comment">Comment:</label>
+                      <textarea class="form-control" rows="5" id="comment" maxlength="160" onkeyup="charsLeft()"></textarea>
+                      <div id="count"></div>
+                      <br>
+                      <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Send comment">
+                </form>
 
-          <form class="form-group">
-          <label for="comment">Comment:</label>
-          <textarea class="form-control" rows="5" id="comment"></textarea>
-          <br>
-          <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Send comment">
-          </form>
           </div>
-              <div class="col-1"> </div>
+          <div class="col-1"> </div>
 
         </div>
 

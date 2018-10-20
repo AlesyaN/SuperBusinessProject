@@ -30,3 +30,6 @@ const htmlForExperience = (number) => {
                   `;
 }
 
+const charsLeft = () => document.getElementById('count').innerHTML = "Characters left: " + (160 - document.getElementById('comment').value.length);
+
+
