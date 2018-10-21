@@ -18,7 +18,7 @@ public class CommentService {
     public void saveComment(HttpServletRequest request) {
         commentDAO.saveComment(
                 userService.getCurrentUser(request).getId(),
-                Integer.parseInt(request.getPathInfo().substring(1)),
+                Integer.parseInt(request.getParameter("id")),
                 request.getParameter("text")
         );
     }

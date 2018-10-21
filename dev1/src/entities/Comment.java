@@ -1,5 +1,6 @@
 package entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Comment {
@@ -15,6 +16,11 @@ public class Comment {
         this.post = post;
         this.date = date;
         this.text = text;
+    }
+
+    public String getDateToString() {
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
+        return df.format(date);
     }
 
     public int getId() {

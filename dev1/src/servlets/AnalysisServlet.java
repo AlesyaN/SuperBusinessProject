@@ -2,7 +2,11 @@ package servlets;
 
 import entities.Comment;
 import entities.Post;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import helpers.Helper;
 import services.CommentService;
+import services.LikeService;
 import services.PostService;
 import services.UserService;
 
@@ -12,72 +16,49 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 
 public class AnalysisServlet extends HttpServlet {
     PostService postService = new PostService();
     UserService userService = new UserService();
     CommentService commentService = new CommentService();
+    LikeService likeService = new LikeService();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String postId = request.getPathInfo().substring(1);
-        if (!postId.equals("")) {
-            String text = request.getParameter("text");
-            if (text != null && !text.equals("")) {
-                commentService.saveComment(request);
-                response.sendRedirect("/news/" + postId);
-            }
-        }
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-        PrintWriter pw = response.getWriter();
-        if (userService.getCurrentUser(request) != null) {
-            pw.println("<a href='/profile'>Profile</a>");
-        } else {
-            pw.print("<a href='/login'>Log In </a>");
-            pw.println("<a href='/sign-up'> Sign Up</a>");
-        }
-        pw.println("<form method='get' action='/search'>" +
-                "<input type='text' name='search'>" +
-                "<input type='submit' name='submit'>" +
-                "</form>");
-        pw.println("<a href='/main'>Main</a>");
-        pw.println("<a href='/currencies'>Currencies</a>");
-        pw.println("<a href='/stocks'>Stocks</a>");
-        pw.println("<a href='/news'>News</a>");
-        pw.println("<a href='/analysis'>Analysis</a>");
-        pw.println("<a href='/crypto'>Crypto</a><br>");
-        pw.flush();
         if (request.getPathInfo() == null) {
-            List<Post> analysis = postService.getAnalysis();
-            for (Post post : analysis) {
-                pw.print("<a href='/" + post.getTheme() + "/" + post.getId() + "'>POST #" + post.getId() + "</a><br>" +
-                        "<b>" + post.getTitle() + " by " + post.getAuthor().getName() + "</b><br>" +
-                        "<i>" + post.getDate() + "</i><br>" +
-                        "<p>" + post.getText() + "</p><br>");
-                pw.flush();
+            Template t = Helper
+                    .getConfig(request.getServletContext())
+                    .getTemplate("analysis_list.ftl");
+            HashMap<String, Object> root = new HashMap<>();
+            root.put("form_url", request.getRequestURI());
+            root.put("user", userService.getCurrentUser(request));
+            root.put("posts", postService.getNews());
+            try {
+                t.process(root, response.getWriter());
+            } catch (TemplateException e) {
+                e.printStackTrace();
             }
         } else {
+            Template t = Helper
+                    .getConfig(request.getServletContext())
+                    .getTemplate("analysis_article.ftl");
+            HashMap<String, Object> root = new HashMap<>();
+            root.put("form_url", request.getRequestURI());
+            root.put("user", userService.getCurrentUser(request));
+
             String id = request.getPathInfo().substring(1);
             Post post = postService.getPostById(Integer.parseInt(id));
-            pw.println("<b>" + post.getTitle() + " by " + post.getAuthor().getName() + "</b><br>" +
-                    "<i>" + post.getDate() + "</i><br>" +
-                    "<p>" + post.getText() + "</p><br>");
-            List<Comment> comments = commentService.getCommentsByPost(post);
-            if (comments.size() > 0) {
-                pw.println("  Comments: <br>");
-                for (Comment comment : comments) {
-                    pw.println(comment.getAuthor().getName() + " on " + comment.getDate() + "<br>");
-                    pw.println(comment.getText() + "<br>");
-                }
-            }
-            if (userService.getCurrentUser(request) != null) {
-                pw.println("Your comment: <br>" +
-                        "<form method='post'>" +
-                        "<textarea rows='4' name='text'></textarea><br>" +
-                        "<input type='submit' name='submit'>" +
-                        "</form>");
+            root.put("post", post);
+            root.put("likes", likeService.getLikesByPost(post).size());
+            root.put("comments", commentService.getCommentsByPost(post));
+            try {
+                t.process(root, response.getWriter());
+            } catch (TemplateException e) {
+                e.printStackTrace();
             }
         }
     }

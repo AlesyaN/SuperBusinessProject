@@ -34,7 +34,7 @@ public class PostDAO {
                         userDAO.getUserById(rs.getInt("author_id")),
                         rs.getString("title"),
                         rs.getString("text"),
-                        rs.getDate("date"),
+                        rs.getTimestamp("date"),
                         rs.getString("theme")
                 ));
             }

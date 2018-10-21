@@ -30,7 +30,7 @@ public class CommentDAO {
                         rs.getInt("id"),
                         userDAO.getUserById(rs.getInt("author_id")),
                         postDAO.getPostById(rs.getInt("news_id")),
-                        rs.getDate("date"),
+                        rs.getTimestamp("date"),
                         rs.getString("text")
                 ));
             }

@@ -59,6 +59,16 @@
         <servlet-class>servlets.EditProfileServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>SaveComment</servlet-name>
+        <servlet-class>servlets.SaveCommentServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SaveComment</servlet-name>
+        <url-pattern>/saveComment</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>Edit</servlet-name>
         <url-pattern>/edit-profile/*</url-pattern>
