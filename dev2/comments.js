@@ -21,9 +21,9 @@ const createComment = (textId) => {
 
             let list = $('#comments-list');
             list.append('<div class="comment-item">
-                            <a href="/profile/${user.id}" id="comment-username">${user.username}</a>
+                            <a href="/profile/${user.id}" id="comment-username">${user['username']}</a>
                             <p id="comment-text">${text}</p>
-                            <small id="comment-date">${comment.date}</small>
+                            <small id="comment-date">${comment['date']}</small>
                             
                             <br>
                             <button class="btn btn-danger">Delete comment</button>
