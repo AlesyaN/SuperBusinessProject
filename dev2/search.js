@@ -11,7 +11,7 @@ const autoComplete = (inputId) => {
                 console.log(msg);
                 let list = $('#search-list');
                 $('.article-item').remove();
-                msg.forEach((user) => list.append(
+                msg.forEach((post) => list.append(
                     `<div class="article-item">
                         <div class="row">
                             <div class="col-4">

@@ -90,8 +90,8 @@
           <p>22.09.2018</p>
          <div class="row">
           <div class="col">
-          <button type="button" class="btn btn-success" onclick="like()">Like</button>
-          <button type="button" class="btn btn-warning" onclick="dislike()">Dislike</button>
+          <button type="button" class="btn btn-success" onclick="like('$post.id');">Like</button>
+          <button type="button" class="btn btn-warning" onclick="dislike('$post.id')">Dislike</button>
         </div>
           <div class="card">
           <div class="card-body bg-success text-white" id="likes_number">
@@ -101,7 +101,7 @@
           </div>
           <hr>
         <div class="comments-list">
-          <div class="comment-item">
+          <div class="comment-item-1">
           
             <a href="">Username</a>
             <p>comment</p>
@@ -120,7 +120,7 @@
                       <textarea class="form-control" rows="5" id="comment" maxlength="160" onkeyup="charsLeft()"></textarea>
                       <div id="count"></div>
                       <br>
-                      <input class="btn btn-outline-success my-2 my-sm-0" id="comment" type="submit" value="Send comment" oninput="addComment('comment')">
+                      <input class="btn btn-outline-success my-2 my-sm-0" id="comment" type="submit" value="Send comment" oninput="createComment('comment')">
                 </form>
         </div>
               <div class="col-1"></div>

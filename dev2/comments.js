@@ -1,25 +1,48 @@
-const addComment = (inputId) => {
-    let query = $(`#${inputId}`).val();
+const deleteComment = (id) => {
     $.ajax({
-        url: '/search/autocomplete.json',
-        type: 'GET',
+        url: `${window.location.pathname}/comments`,
+        type: 'DELETE',
+        success: (data) => {
+            $('comments-item-${id}').remove();
+        }
+    });
+}
+
+const createComment = (textId) => {
+    let text = $(`#${textId}`).val();
+    $.ajax({
+        url: `${window.location.pathname}/comments/${id}`,
+        type: 'POST',
         data: {
-            query: query
+            text: text
         },
-        success: (msg) => {
-            console.log(msg);
-            let list = $('#comments-list');
-            msg.forEach((user) => list.append(
-                ` <div class="comment-item">
-                    <a href="">${comment['author']}</a>
-                    <p>${comment['text']}</p>
-                    <small>${comment['date']}</small>
-                    <br>
-                    <button class="btn btn-danger">Delete comment</button>
-                    <button class="btn btn-primary">Edit comment</button>
-                    <hr>
-                  </div>`
-            ));
+        success: (data) => {
+            addComment(text);
         }
     });
 };
+
+// const addComment = (text) => {
+//     let comment = document.createElement('div');
+//     comment.setAttribute('class', 'comment-item');
+//     let comment_username = document.createElement('a');
+//     comment.appendChild
+
+//     let container = document.getElementById('comments-list');
+//     container.appendChild(comment);
+// }
+
+//  <div class="comments-list">
+//           <div class="comment-item">
+          
+//             <a href="" id="comment-username">Username</a>
+//             <p id="comment-text">comment</p>
+//             <small id="comment-date">22.10.2018</small>
+            
+//             <br>
+//             <button class="btn btn-danger">Delete comment</button>
+//             <button class="btn btn-primary">Edit comment</button>
+//             <hr>
+
+//           </div>
+//         </div>
