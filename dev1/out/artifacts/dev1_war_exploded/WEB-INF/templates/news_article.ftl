@@ -35,8 +35,14 @@
     Comments: <br>
     <ul id="list">
     <#list comments as c>
-        <li>${c.author.name} on ${c.getDateToString()} <br>
+        <li id="${c.id}">${c.author.name} on ${c.getDateToString()} <br>
         ${c.text}  <br>
+            <#if user??>
+            <#if c.author.name=user.name>
+                <button onclick="deleteComment(${c.id})">delete</button>
+            </#if>
+
+            </#if>
         </li>
     </#list>
     </ul>
@@ -49,20 +55,39 @@
 </#if>
 
 <script type="application/javascript">
+    function deleteComment(id) {
+        $.ajax({
+           url: "/ajax",
+           type: "post",
+           data: {
+               "id": id,
+               "ajax": "deleteComment"
+           },
+           success: function(msg) {
+               document.getElementById(id).remove();
+           },
+            error: function (msg) {
+                alert("error");
+            }
+        });
+    }
+
     function newComment(request, response) {
         var textarea = $("#text");
         if (textarea.val().length > 0) {
             $.ajax({
-                url: "/saveComment",
+                url: "/ajax",
                 type: "post",
                 data: {
+                    "ajax": "saveComment",
                     "text": textarea.val(),
                     "id": ${post.id}
                 },
                 success: function (msg) {
                     var lst = $("#list");
-                    lst.append("<li>" + msg.authorName + " on " + msg.date + "<br>" +
-                            textarea.val() + "<br>");
+                    lst.append("<li id='"+ msg.id+"'>" + msg.authorName + " on " + msg.date + "<br>" +
+                            textarea.val() + "<br>" +
+                    "<button onclick=\"deleteComment(" + msg.id + ")\">delete</button>");
                     textarea.val("");
                 },
                 error: function (msg) {

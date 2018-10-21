@@ -13,22 +13,27 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-public class SaveCommentServlet extends HttpServlet {
+public class AjaxServlet extends HttpServlet {
     UserService userService = new UserService();
     CommentService commentService = new CommentService();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("POST THAT");
-        commentService.saveComment(request);
-        JSONObject jo = new JSONObject();
-        jo.put("authorName", userService.getCurrentUser(request).getName());
-        SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
-        jo.put("date", df.format(new Date()));
-        response.setContentType("text/json");
-        response.getWriter().println(jo.toString());
+        if (request.getParameter("ajax").equals("saveComment")) {
+            int id = commentService.saveComment(request);
+            JSONObject jo = new JSONObject();
+            jo.put("authorName", userService.getCurrentUser(request).getName());
+            SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
+            jo.put("date", df.format(new Date()));
+            jo.put("id", id);
+            response.setContentType("text/json");
+            response.getWriter().println(jo.toString());
+        } else if (request.getParameter("ajax").equals("deleteComment")) {
+            commentService.deleteComment(request);
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 
     }
 }

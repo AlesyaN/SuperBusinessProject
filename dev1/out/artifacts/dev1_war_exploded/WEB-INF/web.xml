@@ -60,13 +60,14 @@
     </servlet>
 
     <servlet>
-        <servlet-name>SaveComment</servlet-name>
-        <servlet-class>servlets.SaveCommentServlet</servlet-class>
+        <servlet-name>Ajax</servlet-name>
+        <servlet-class>servlets.AjaxServlet</servlet-class>
     </servlet>
 
+
     <servlet-mapping>
-        <servlet-name>SaveComment</servlet-name>
-        <url-pattern>/saveComment</url-pattern>
+        <servlet-name>Ajax</servlet-name>
+        <url-pattern>/ajax</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
