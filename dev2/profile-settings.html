@@ -72,97 +72,137 @@
         <div class="settings">
             <form>
               <div class="form-group row">
-                <div class="col-2"></div>
-                <div class="col-8">
+                <div class="col-3"></div>
+                <div class="col-6">
                     <label for="exampleFormControlFile1">You can change your profile pic:</label>
                 <input type="file" class="form-control-file" id="exampleFormControlFile1">
                 </div>
                 
-                <div class="col-2"></div>
+                <div class="col-3"></div>
               </div>
             </form>
 
             <form>
-                  <div class="form-group row">
-                    <div class="col-2"></div>
-                    <label for="input" class="col-3 col-form-label">Change first name</label>
-                    <div class="col-5">
-                    <input type="text" class="form-control" id="input" placeholder="First name" value="Old name here">
+
+              <div class="form-group row">
+                    <div class="col-3"></div>
+                    <label for="login" class="col-2 col-form-label">Change login</label>
+                    <div class="col-4">
+                    <input type="text" class="form-control" id="login" placeholder="Login" value="Old login here" required onblur="validateForm('login', /[a-zA-Z][0-9a-zA-Z]{4,15}/, 'login_msg', 'Login should contain only characters A-Z, a-z and digits and length 5-16')">
+                    <div id="login_msg"></div>
                     </div>
-                    <div class="col-2"></div>
+                    <div class="col-3"></div>
                   </div>
-                  <div class="form-group row">
-                    <div class="col-2"></div>
-                    <label for="input" class="col-3 col-form-label">Change last name</label>
-                    <div class="col-5">
-                    <input type="text" class="form-control" id="input" placeholder="Last name" value="Old last name here">
+
+                <div class="form-group row">
+                    <div class="col-3"></div>
+                    <label for="email" class="col-2 col-form-label">Change email</label>
+                    <div class="col-4">
+                    <input type="text" class="form-control" id="email" placeholder="Email" value="Old email here" required required onblur="validateForm('email', /[a-zA-Z][0-9a-zA-Z.]*@([a-zA-Z][0-9a-zA-Z]+\.)+[a-zA-Z]+/, 'email_msg', 'Email should be like example123@mail.com')">
+                    <div id="email_msg"></div>
                     </div>
-                    <div class="col-2"></div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-2"></div>
-                    <label for="input" class="col-3 col-form-label">Change birth date</label>
-                    <div class="col-5">
-                    <input type="text" class="form-control" id="input" placeholder="Birth date" value="Old birth date">
-                    </div>
-                    <div class="col-2"></div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-2"></div>
-                    <label for="input" class="col-3 col-form-label">Change birth place</label>
-                    <div class="col-5">
-                    <input type="text" class="form-control" id="input" placeholder="Birth place" value="old birth place">
-                    </div>
-                    <div class="col-2"></div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-2"></div>
-                    <label for="input" class="col-3 col-form-label">Change education</label>
-                    <div class="col-5">
-                    <input type="text" class="form-control" id="input" placeholder="Education" value="old edu">
-                    </div>
-                    <div class="col-2"></div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-2"></div>
-                    <label for="input" class="col-3 col-form-label">Change scope of work</label>
-                    <div class="col-5">
-                    <input type="text" class="form-control" id="input" placeholder="Scope" value="old scope">
-                    </div>
-                    <div class="col-2"></div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-2"></div>
-                    <label for="input" class="col-3 col-form-label">Change company</label>
-                    <div class="col-5">
-                    <input type="text" class="form-control" id="input" placeholder="Company" value="old company">
-                    </div>
-                    <div class="col-2"></div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-2"></div>
-                    <label for="input" class="col-3 col-form-label">Change position</label>
-                    <div class="col-5">
-                    <input type="text" class="form-control" id="input" placeholder="Position" value="old position">
-                    </div>
-                    <div class="col-2"></div>
+                    <div class="col-3"></div>
                   </div>
 
                   <div class="form-group row">
-                    <div class="col-2"></div>
-                    <label for="input" class="col-3 col-form-label">Add work experience</label>
-                    <div class="col-5">
-                    <input type="text" class="form-control" id="input" placeholder="Work experience" value="old experience">
+                    <div class="col-3"></div>
+                    <label for="password" class="col-2 col-form-label">Change password</label>
+                    <div class="col-4">
+                    <input type="password" class="form-control" id="password" placeholder="Password" value="Old password here"required onblur="validateForm('password', /[0-9a-zA-Z!@#$%^&*()+-_=]{8,16}/, 'password_msg', 'Password should contain only characters A-Z, a-z, digits, special symbols: !@#$%^&*()+-_= and length 8-16')">
+                    <div id="password_msg"></div>
                     </div>
+                    <div class="col-3"></div>
+                  </div>
 
-                    <div class="col-2"></div>
+                  <div class="form-group row">
+                    <div class="col-3"></div>
+                    <label for="repeat_password" class="col-2 col-form-label">Repeat password</label>
+                    <div class="col-4">
+                    <input type="password" class="form-control" id="repeat_password" placeholder="Repeat password" value="old password here" required onblur="repeatPassword()">
+                    <div id="repeat_password_msg"></div>
+                    </div>
+                    <div class="col-3"></div>
                   </div>
                   <div class="form-group row">
-                    <div class="col-2"></div>
-                    <div class="col-sm-8">
-                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Submit</button>
+                    <div class="col-3"></div>
+                    <label for="firstname" class="col-2 col-form-label">Change first name</label>
+                    <div class="col-4">
+                    <input type="text" class="form-control" id="firstname" placeholder="First name" value="Old name here">
                     </div>
-                    <div class="col-2"></div>
+                    <div class="col-3"></div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-3"></div>
+                    <label for="lastname" class="col-2 col-form-label">Change last name</label>
+                    <div class="col-4">
+                    <input type="text" class="form-control" id="lastname" placeholder="Last name" value="Old last name here">
+                    </div>
+                    <div class="col-3"></div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-3"></div>
+                    <label for="birthdate" class="col-2 col-form-label">Change birth date</label>
+                    <div class="col-4">
+                    <input type="text" class="form-control" id="birthdate" placeholder="Birth date" value="Old birth date">
+                    </div>
+                    <div class="col-3"></div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-3"></div>
+                    <label for="birthplace" class="col-2 col-form-label">Change birth place</label>
+                    <div class="col-4">
+                    <input type="text" class="form-control" id="birthplace" placeholder="Birth place" value="old birth place">
+                    </div>
+                    <div class="col-3"></div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-3"></div>
+                    <label for="edu" class="col-2 col-form-label">Change education</label>
+                    <div class="col-4">
+                    <input type="text" class="form-control" id="edu" placeholder="Education" value="old edu">
+                    </div>
+                    <div class="col-3"></div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-3"></div>
+                    <label for="scope" class="col-2 col-form-label">Change scope of work</label>
+                    <div class="col-4">
+                    <input type="text" class="form-control" id="scope" placeholder="Scope" value="old scope">
+                    </div>
+                    <div class="col-3"></div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-3"></div>
+                    <label for="company" class="col-2 col-form-label">Change company</label>
+                    <div class="col-4">
+                    <input type="text" class="form-control" id="company" placeholder="Company" value="old company">
+                    </div>
+                    <div class="col-3"></div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-3"></div>
+                    <label for="position" class="col-2 col-form-label">Change position</label>
+                    <div class="col-4">
+                    <input type="text" class="form-control" id="position" placeholder="Position" value="old position">
+                    </div>
+                    <div class="col-3"></div>
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="col-3"></div>
+                    <label for="experience" class="col-2 col-form-label">Change work experience</label>
+                    <div class="col-4">
+                    <input type="text" class="form-control" id="experience" placeholder="Work experience" value="old experience">
+                    </div>
+
+                    <div class="col-3"></div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-3"></div>
+                    <div class="col-sm-6">
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="validateForm()">Submit</button>
+                    </div>
+                    <div class="col-3"></div>
                   </div>
                   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
