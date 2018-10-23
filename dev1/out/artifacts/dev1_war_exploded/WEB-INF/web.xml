@@ -64,6 +64,15 @@
         <servlet-class>servlets.AjaxServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>NewPost</servlet-name>
+        <servlet-class>servlets.NewPostServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>NewPost</servlet-name>
+        <url-pattern>/new-post/*</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>Ajax</servlet-name>
@@ -124,5 +133,10 @@
     <servlet-mapping>
         <servlet-name>Main</servlet-name>
         <url-pattern>/main/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.jpg</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -9,6 +9,7 @@
 <body>
     <#if user??>
         <a href='/profile'>Profile</a>
+        <a href="/new-post">New post</a>
     <#else>
         <a href='/login'>Log In </a>
         <a href='/sign-up'> Sign Up</a>

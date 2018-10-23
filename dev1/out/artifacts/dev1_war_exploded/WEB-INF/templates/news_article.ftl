@@ -24,12 +24,18 @@
 <a href='/analysis'>Analysis</a>
 <a href='/crypto'>Crypto</a><br>
 <#if post??>
+    <#if picture??>
+    <img src="${picture}" style="height: 200px; width: 200px"><br>
+    </#if>
     <b>${post.title} by ${post.author.name}</b><br>
     <i>${post.getDateToString()}</i><br>
     <p>${post.text}</p><br>
 </#if>
 <#if likes??>
-    Likes: <div id="likes">${likes}</div> <button onclick="like()">like</button> <br>
+    Likes: <div id="likes">${likes}</div>
+    <#if user??>
+    <button onclick="like()">like</button> <br>
+    </#if>
 </#if>
 <#if comments??>
     Comments: <br>

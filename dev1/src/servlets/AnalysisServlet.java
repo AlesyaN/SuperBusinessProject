@@ -36,7 +36,7 @@ public class AnalysisServlet extends HttpServlet {
             HashMap<String, Object> root = new HashMap<>();
             root.put("form_url", request.getRequestURI());
             root.put("user", userService.getCurrentUser(request));
-            root.put("posts", postService.getNews());
+            root.put("posts", postService.getAnalysis());
             try {
                 t.process(root, response.getWriter());
             } catch (TemplateException e) {
@@ -55,6 +55,7 @@ public class AnalysisServlet extends HttpServlet {
             root.put("post", post);
             root.put("likes", likeService.getLikesByPost(post).size());
             root.put("comments", commentService.getCommentsByPost(post));
+            root.put("picture", post.getPicPath());
             try {
                 t.process(root, response.getWriter());
             } catch (TemplateException e) {

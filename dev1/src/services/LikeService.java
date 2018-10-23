@@ -16,13 +16,16 @@ public class LikeService {
     }
 
     public boolean toggleLike(HttpServletRequest request) {
-        Like like = likeDAO.getLikeOnPost(Integer.parseInt(request.getParameter("post-id")), userService.getCurrentUser(request));
-        if (like != null) {
-            likeDAO.deleteLike(like);
-            return false;
-        } else {
-            likeDAO.addLike(Integer.parseInt(request.getParameter("post-id")), userService.getCurrentUser(request));
-            return true;
+        if (userService.getCurrentUser(request) != null) {
+            Like like = likeDAO.getLikeOnPost(Integer.parseInt(request.getParameter("post-id")), userService.getCurrentUser(request));
+            if (like != null) {
+                likeDAO.deleteLike(like);
+                return false;
+            } else {
+                likeDAO.addLike(Integer.parseInt(request.getParameter("post-id")), userService.getCurrentUser(request));
+                return true;
+            }
         }
+        return false;
     }
 }
