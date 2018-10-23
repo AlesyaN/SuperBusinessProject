@@ -29,18 +29,18 @@
     <p>${post.text}</p><br>
 </#if>
 <#if likes??>
-    Likes: ${likes} <br>
+    Likes: <div id="likes">${likes}</div> <button onclick="like()">like</button> <br>
 </#if>
 <#if comments??>
     Comments: <br>
     <ul id="list">
     <#list comments as c>
         <li id="${c.id}">${c.author.name} on ${c.getDateToString()} <br>
-        ${c.text}  <br>
+            ${c.text}  <br>
             <#if user??>
-            <#if c.author.name=user.name>
+                <#if c.author.name=user.name>
                 <button onclick="deleteComment(${c.id})">delete</button>
-            </#if>
+                </#if>
 
             </#if>
         </li>
@@ -55,17 +55,38 @@
 </#if>
 
 <script type="application/javascript">
+    function like() {
+        $.ajax({
+            url: "/ajax",
+            type: "post",
+            data: {
+                "ajax": "like",
+                "post-id": ${post.id}
+            },
+            success: function(msg) {
+                var likes = document.getElementById("likes");
+                var val = likes.innerHTML;
+                if (msg.like) {
+                    val = +val + 1;
+                    likes.innerHTML = val;
+                } else {
+                    val = +val - 1;
+                    likes.innerHTML = val;
+                }
+            }
+        });
+    }
     function deleteComment(id) {
         $.ajax({
-           url: "/ajax",
-           type: "post",
-           data: {
-               "id": id,
-               "ajax": "deleteComment"
-           },
-           success: function(msg) {
-               document.getElementById(id).remove();
-           },
+            url: "/ajax",
+            type: "post",
+            data: {
+                "id": id,
+                "ajax": "deleteComment"
+            },
+            success: function(msg) {
+                document.getElementById(id).remove();
+            },
             error: function (msg) {
                 alert("error");
             }
@@ -87,7 +108,7 @@
                     var lst = $("#list");
                     lst.append("<li id='"+ msg.id+"'>" + msg.authorName + " on " + msg.date + "<br>" +
                             textarea.val() + "<br>" +
-                    "<button onclick=\"deleteComment(" + msg.id + ")\">delete</button>");
+                            "<button onclick=\"deleteComment(" + msg.id + ")\">delete</button>");
                     textarea.val("");
                 },
                 error: function (msg) {

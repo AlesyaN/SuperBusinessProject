@@ -29,7 +29,7 @@
     <p>${post.text}</p><br>
 </#if>
 <#if likes??>
-    Likes: ${likes} <br>
+    Likes: <div id="likes">${likes}</div> <button onclick="like()">like</button> <br>
 </#if>
 <#if comments??>
     Comments: <br>
@@ -55,6 +55,27 @@
 </#if>
 
 <script type="application/javascript">
+    function like() {
+        $.ajax({
+            url: "/ajax",
+            type: "post",
+            data: {
+                "ajax": "like",
+                "post-id": ${post.id}
+            },
+            success: function(msg) {
+                var likes = document.getElementById("likes");
+                var val = likes.innerHTML;
+                if (msg.like) {
+                    val = +val + 1;
+                    likes.innerHTML = val;
+                } else {
+                    val = +val - 1;
+                    likes.innerHTML = val;
+                }
+            }
+        });
+    }
     function deleteComment(id) {
         $.ajax({
             url: "/ajax",

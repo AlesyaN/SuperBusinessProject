@@ -2,6 +2,7 @@ package servlets;
 
 import org.json.JSONObject;
 import services.CommentService;
+import services.LikeService;
 import services.UserService;
 
 import javax.servlet.ServletException;
@@ -16,6 +17,7 @@ import java.util.Date;
 public class AjaxServlet extends HttpServlet {
     UserService userService = new UserService();
     CommentService commentService = new CommentService();
+    LikeService likeService = new LikeService();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("ajax").equals("saveComment")) {
@@ -29,6 +31,12 @@ public class AjaxServlet extends HttpServlet {
             response.getWriter().println(jo.toString());
         } else if (request.getParameter("ajax").equals("deleteComment")) {
             commentService.deleteComment(request);
+        } else if (request.getParameter("ajax").equals("like")) {
+            boolean b = likeService.toggleLike(request);
+            JSONObject jo = new JSONObject();
+            jo.put("like", b);
+            response.setContentType("text/json");
+            response.getWriter().println(jo.toString());
         }
     }
 

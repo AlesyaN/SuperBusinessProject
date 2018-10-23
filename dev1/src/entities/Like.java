@@ -10,4 +10,8 @@ public class Like {
         this.user = user;
         this.post = post;
     }
+
+    public int getId() {
+        return id;
+    }
 }

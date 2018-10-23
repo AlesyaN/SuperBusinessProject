@@ -110,18 +110,18 @@ public class UserDAO {
     }
 
     public void register(HttpServletRequest request) {
-        insertIntoUser(request);
-        insertIntoSE(request);
+        int id = insertIntoUser(request);
+        insertIntoSE(request, id);
     }
 
-    private void insertIntoSE(HttpServletRequest request) {
+    private void insertIntoSE(HttpServletRequest request, int id) {
         try {
             PreparedStatement ps = connection.prepareStatement("insert into " +
                     "scope_experience(user_id, experience, scope_id) " +
                     "values(?,?,?)");
             int i = 1;
             while (request.getParameter("scope" + i) != null && !request.getParameter("scope" + i).equals("")) {
-                ps.setInt(1, (new UserService()).getCurrentUser(request).getId());
+                ps.setInt(1, id);
                 ps.setInt(2, Integer.parseInt(request.getParameter("experience" + i)));
                 ps.setInt(3, getScopeIdByName(request.getParameter("scope" + i)));
                 ps.execute();
@@ -146,12 +146,12 @@ public class UserDAO {
         return -1;
     }
 
-    private void insertIntoUser(HttpServletRequest request) {
+    private int insertIntoUser(HttpServletRequest request) {
         PreparedStatement ps = null;
         try {
             ps = connection.prepareStatement("insert into \"user\"(surname, name," +
                     "patronymic, date_of_birth, place_of_birth, education," +
-                    "position, email, password) values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    "position, email, password) values(?, ?, ?, ?, ?, ?, ?, ?, ?) returning id");
             ps.setString(1, request.getParameter("surname"));
             ps.setString(2, request.getParameter("name"));
             ps.setString(3, request.getParameter("patronymic"));
@@ -161,10 +161,13 @@ public class UserDAO {
             ps.setString(7, request.getParameter("position"));
             ps.setString(8, request.getParameter("email"));
             ps.setString(9, request.getParameter("password"));
-            ps.execute();
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            return rs.getInt("id");
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return -1;
     }
 
     public boolean emailIsUnique(String email) {
@@ -215,7 +218,7 @@ public class UserDAO {
         } catch (SQLException e1) {
             e1.printStackTrace();
         }
-        insertIntoSE(request);
+        insertIntoSE(request, (new UserService()).getCurrentUser(request).getId());
     }
 
     public void editUser(HttpServletRequest request) {
