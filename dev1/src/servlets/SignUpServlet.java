@@ -1,5 +1,9 @@
 package servlets;
 
+import entities.Post;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import helpers.Helper;
 import services.UserService;
 
 import javax.servlet.ServletException;
@@ -9,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.*;
+import java.util.HashMap;
 
 @MultipartConfig
 public class SignUpServlet extends HttpServlet {
@@ -32,6 +37,16 @@ public class SignUpServlet extends HttpServlet {
         if (userService.getCurrentUser(request) != null) {
             response.sendRedirect("/main");
         } else {
+//            Template t = Helper
+//                    .getConfig(request.getServletContext())
+//                    .getTemplate("signup.ftl.ftl");
+//            HashMap<String, Object> root = new HashMap<>();
+//            root.put("form_url", request.getRequestURI());
+//            try {
+//                t.process(root, response.getWriter());
+//            } catch (TemplateException e) {
+//                e.printStackTrace();
+//            }
             response.setContentType("text/html");
             PrintWriter pw = response.getWriter();
             pw.println("<a href='/main'>Main</a>");
@@ -51,9 +66,8 @@ public class SignUpServlet extends HttpServlet {
                     "Date of birth: <input type='text' name='dateOfBirth' required><br>" +
                     "Place of birth: <input type='text' name='placeOfBirth'><br>" +
                     "Education: <input type='text' name='education'><br>" +
-                    "Experience: <input type='text' name='scope1'> <input type='text' name='experience1'><br>" +
-                    "<input type='text' name='scope2'> <input type='text' name='experience2'><br>" +
-                    "<input type='text' name='scope3'> <input type='text' name='experience3'><br>" +
+                    "Scope: <input type='text' name='scope'> " +
+                    "Experience: <input type='text' name='experience'><br>" +
                     "Position: <input type='text' name='position'><br>" +
                     "Avatar: <input type='file' name='file'><br>" +
                     "<input type='submit' name='submit'>" +

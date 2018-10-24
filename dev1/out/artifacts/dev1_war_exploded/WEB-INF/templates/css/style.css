@@ -1,0 +1,41 @@
+html, body {
+ 	height: 100%;
+}
+body {
+	padding-top: 80px;
+}
+div.row {
+	/*border: 1px solid silver;*/
+}
+/*.container-fluid {
+	height: 100%;
+}*/
+.stocks-wrapper {
+	padding-bottom: 10px;
+}
+.nav-wrapper {
+	padding-bottom: 10px;
+}
+.right-col {
+	height: 100%
+}
+
+.field {
+    display: block;
+}
+
+.login-wrapper {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20vh;
+}
+
+.article-wrapper-main {
+	padding-bottom: 50px;
+}
+
+.search-form {
+	padding-bottom: 50px;
+	align-content: center;
+}

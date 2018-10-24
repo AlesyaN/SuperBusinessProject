@@ -34,41 +34,13 @@ public class UserDAO {
                     rs.getDate("date_of_birth"),
                     rs.getString("place_of_birth"),
                     rs.getString("education"),
-                    getExperienceByUserId(rs.getInt("id")),
+                    rs.getInt("experience"),
+                    rs.getString("scope"),
                     rs.getString("position"),
                     rs.getString("email"),
                     rs.getString("password"),
                     rs.getString("pic_path")
             );
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private Map<String, Integer> getExperienceByUserId(int id) {
-        Map<String, Integer> experience = new HashMap<>();
-        try {
-            PreparedStatement ps = connection.prepareStatement("select * from scope_experience where user_id=?");
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                experience.put(getScopeById(rs.getInt("scope_id")),
-                        rs.getInt("experience"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return experience;
-    }
-
-    private String getScopeById(int scope_id) {
-        try {
-            PreparedStatement ps = connection.prepareStatement("select * from scope where id=?");
-            ps.setInt(1, scope_id);
-            ResultSet rs = ps.executeQuery();
-            rs.next();
-            return rs.getString("name");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -102,7 +74,8 @@ public class UserDAO {
                         rs.getDate("date_of_birth"),
                         rs.getString("place_of_birth"),
                         rs.getString("education"),
-                        getExperienceByUserId(rs.getInt("id")),
+                        rs.getInt("experience"),
+                        rs.getString("scope"),
                         rs.getString("position"),
                         rs.getString("email"),
                         rs.getString("password"),
@@ -115,49 +88,13 @@ public class UserDAO {
         return users;
     }
 
+
     public void register(HttpServletRequest request, Part filePart, String path) {
-        int id = insertIntoUser(request, filePart, path);
-        insertIntoSE(request, id);
-    }
-
-    private void insertIntoSE(HttpServletRequest request, int id) {
-        try {
-            PreparedStatement ps = connection.prepareStatement("insert into " +
-                    "scope_experience(user_id, experience, scope_id) " +
-                    "values(?,?,?)");
-            int i = 1;
-            while (request.getParameter("scope" + i) != null && !request.getParameter("scope" + i).equals("")) {
-                ps.setInt(1, id);
-                ps.setInt(2, Integer.parseInt(request.getParameter("experience" + i)));
-                ps.setInt(3, getScopeIdByName(request.getParameter("scope" + i)));
-                ps.execute();
-                i++;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private int getScopeIdByName(String parameter) {
-        try {
-            PreparedStatement ps = connection.prepareStatement("select * from scope where name=?");
-            ps.setString(1, parameter);
-            ResultSet rs = ps.executeQuery();
-            rs.next();
-            return rs.getInt("id");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return -1;
-    }
-
-    private int insertIntoUser(HttpServletRequest request, Part filePart, String path) {
         PreparedStatement ps = null;
         try {
             ps = connection.prepareStatement("insert into \"user\"(surname, name," +
                     "patronymic, date_of_birth, place_of_birth, education," +
-                    "position, email, password) values(?, ?, ?, ?, ?, ?, ?, ?, ?) returning id");
+                    "position, email, password, scope, experience) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) returning id");
             ps.setString(1, request.getParameter("surname"));
             ps.setString(2, request.getParameter("name"));
             ps.setString(3, request.getParameter("patronymic"));
@@ -167,15 +104,15 @@ public class UserDAO {
             ps.setString(7, request.getParameter("position"));
             ps.setString(8, request.getParameter("email"));
             ps.setString(9, request.getParameter("password"));
+            ps.setString(10, request.getParameter("scope"));
+            ps.setInt(11, Integer.parseInt(request.getParameter("experience")));
             ResultSet rs = ps.executeQuery();
             rs.next();
             int userId = rs.getInt("id");
             savePic(filePart, path, userId);
-            return userId;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return -1;
     }
 
     private void savePic(Part filePart, String path, int userId) {
@@ -279,24 +216,8 @@ public class UserDAO {
         return false;
     }
 
+
     public void edit(HttpServletRequest request, Part filePart, String realPath) {
-        editUser(request, filePart, realPath);
-        editScopeExp(request);
-    }
-
-    private void editScopeExp(HttpServletRequest request) {
-        PreparedStatement ps = null;
-        try {
-            ps = connection.prepareStatement("delete from scope_experience where user_id="
-                    + (new UserService()).getCurrentUser(request).getId());
-            ps.execute();
-        } catch (SQLException e1) {
-            e1.printStackTrace();
-        }
-        insertIntoSE(request, (new UserService()).getCurrentUser(request).getId());
-    }
-
-    public void editUser(HttpServletRequest request, Part filePart, String realPath) {
         List<String> params = new ArrayList<>();
         params.add("email");
         params.add("password");
@@ -306,6 +227,8 @@ public class UserDAO {
         params.add("date_of_birth");
         params.add("place_of_birth");
         params.add("education");
+        params.add("experience");
+        params.add("scope");
         params.add("position");
         params.add("file");
         try {
@@ -315,16 +238,16 @@ public class UserDAO {
             for (String param : params) {
                 ps = connection.prepareStatement(statement1 + param + statement2);
                 if (param.equals("file")) {
-
-                    if (filePart != null) {
+                    if (filePart.getSize() != 0) {
                         savePic(filePart, realPath, (new UserService()).getCurrentUser(request).getId());
-
                     }
                 } else {
                     String value = request.getParameter(param);
                     if (!request.getParameter(param).equals("") && request.getParameter(param) != null) {
                         if (param.equals("date_of_birth")) {
                             ps.setDate(1, java.sql.Date.valueOf(value));
+                        } else if (param.equals("experience")) {
+                            ps.setInt(1, Integer.parseInt(value));
                         } else {
                             ps.setString(1, value);
                         }
@@ -352,7 +275,8 @@ public class UserDAO {
                     rs.getDate("date_of_birth"),
                     rs.getString("place_of_birth"),
                     rs.getString("education"),
-                    getExperienceByUserId(rs.getInt("id")),
+                    rs.getInt("experience"),
+                    rs.getString("scope"),
                     rs.getString("position"),
                     rs.getString("email"),
                     rs.getString("password"),

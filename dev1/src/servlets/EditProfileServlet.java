@@ -37,9 +37,6 @@ public class EditProfileServlet extends HttpServlet {
             response.sendRedirect("/login");
         } else {
             User user = userService.getCurrentUser(request);
-            Map<String, Integer> map = user.getExperience();
-            Set<String> keys =  map.keySet();
-            List<String> keysList = new ArrayList<>(keys);
             PrintWriter pw = response.getWriter();
             pw.println("<a href='/main'>Main</a>");
             pw.print("<a href='/profile'>Profile</a>");
@@ -57,10 +54,8 @@ public class EditProfileServlet extends HttpServlet {
                     "Date of birth: <input type='text' name='date_of_birth' value='" + user.getDateOfBirthToString() +"'><br>" +
                     "Place of birth: <input type='text' name='place_of_birth' value='" + user.getPlaceOfBirth() + "'><br>" +
                     "Education: <input type='text' name='education' value='" + user.getEducation() +"'><br>");
-                    for (int i = 0; i < keysList.size(); i++) {
-                        pw.println("Experience: <input type='text' name='scope"+ (i+1)+"' value='" + keysList.get(i) + "'> " +
-                                "<input type='text' name='experience" +(i+1) + "' value='"+ map.get(keysList.get(i))+"'><br>");
-                    }
+                    pw.println("Scope: <input type='text' name='scope' value='" + user.getScope()+ "'><br>" +
+                            "Experience: <input type='text' name='experience' value='" + user.getExperience()+ "'><br>");
 
                     pw.println("Position: <input type='text' name='position' value='" + user.getPosition() +"'><br>" +
                             "<input type='file' name='file'>" +
