@@ -3,6 +3,8 @@ package dao;
 import entities.User;
 import services.UserService;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import java.io.*;
@@ -113,8 +115,8 @@ public class UserDAO {
         return users;
     }
 
-    public void register(HttpServletRequest request, Part filePart, String filename, String path) {
-        int id = insertIntoUser(request, filePart, filename, path);
+    public void register(HttpServletRequest request, Part filePart, String path) {
+        int id = insertIntoUser(request, filePart, path);
         insertIntoSE(request, id);
     }
 
@@ -150,7 +152,7 @@ public class UserDAO {
         return -1;
     }
 
-    private int insertIntoUser(HttpServletRequest request, Part filePart, String filename, String path) {
+    private int insertIntoUser(HttpServletRequest request, Part filePart, String path) {
         PreparedStatement ps = null;
         try {
             ps = connection.prepareStatement("insert into \"user\"(surname, name," +
@@ -168,12 +170,22 @@ public class UserDAO {
             ResultSet rs = ps.executeQuery();
             rs.next();
             int userId = rs.getInt("id");
-            System.out.println(userId);
+            savePic(filePart, path, userId);
+            return userId;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    private void savePic(Part filePart, String path, int userId) {
             File file = new File(path + File.separator + userId);
             file.mkdirs();
             OutputStream out = null;
             InputStream filecontent = null;
-            String ext = filename.substring(filename.lastIndexOf("."));
+            String filename = getFileName(filePart);
+        System.out.println(filename);
+            String ext = filename.substring(filename.lastIndexOf(".")).toLowerCase();
             String fileName = System.currentTimeMillis() + "";
             String fullpath = path + File.separator +  userId + File.separator + fileName + ext;
             System.out.println(fullpath);
@@ -210,7 +222,7 @@ public class UserDAO {
                     e.printStackTrace();
                 }
             }
-
+            PreparedStatement ps = null;
             try {
                 ps = connection.prepareStatement("update \"user\" set pic_path=? where id=?");
                 ps.setString(1, "/files/users/" + userId + "/" + fileName + ext);
@@ -219,11 +231,18 @@ public class UserDAO {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            return userId;
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+    }
+
+    private String getFileName(final Part part) {
+        final String partHeader = part.getHeader("content-disposition");
+        for (String content : part.getHeader("content-disposition").split(";")) {
+            if (content.trim().startsWith("filename")) {
+                return content.substring(
+                        content.indexOf('=') + 1).trim().replace("\"", "");
+            }
         }
-        return -1;
+        return null;
     }
 
     public boolean emailIsUnique(String email) {
@@ -260,8 +279,8 @@ public class UserDAO {
         return false;
     }
 
-    public void edit(HttpServletRequest request) {
-        editUser(request);
+    public void edit(HttpServletRequest request, Part filePart, String realPath) {
+        editUser(request, filePart, realPath);
         editScopeExp(request);
     }
 
@@ -277,7 +296,7 @@ public class UserDAO {
         insertIntoSE(request, (new UserService()).getCurrentUser(request).getId());
     }
 
-    public void editUser(HttpServletRequest request) {
+    public void editUser(HttpServletRequest request, Part filePart, String realPath) {
         List<String> params = new ArrayList<>();
         params.add("email");
         params.add("password");
@@ -288,22 +307,30 @@ public class UserDAO {
         params.add("place_of_birth");
         params.add("education");
         params.add("position");
-        params.add("pic_path");
+        params.add("file");
         try {
             String statement1  = "update \"user\" set ";
             String statement2 = "=? where id=?";
             PreparedStatement ps = null;
             for (String param : params) {
                 ps = connection.prepareStatement(statement1 + param + statement2);
-                String value = request.getParameter(param);
-                if (!request.getParameter(param).equals("") && request.getParameter(param) != null) {
-                    if (param.equals("date_of_birth")) {
-                        ps.setDate(1, java.sql.Date.valueOf(value));
-                    } else {
-                        ps.setString(1, value);
+                if (param.equals("file")) {
+
+                    if (filePart != null) {
+                        savePic(filePart, realPath, (new UserService()).getCurrentUser(request).getId());
+
                     }
-                    ps.setInt(2, (new UserService()).getCurrentUser(request).getId());
-                    ps.execute();
+                } else {
+                    String value = request.getParameter(param);
+                    if (!request.getParameter(param).equals("") && request.getParameter(param) != null) {
+                        if (param.equals("date_of_birth")) {
+                            ps.setDate(1, java.sql.Date.valueOf(value));
+                        } else {
+                            ps.setString(1, value);
+                        }
+                        ps.setInt(2, (new UserService()).getCurrentUser(request).getId());
+                        ps.execute();
+                    }
                 }
             }
         } catch (SQLException e) {

@@ -4,13 +4,16 @@ import entities.User;
 import services.UserService;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 
+@MultipartConfig
 public class EditProfileServlet extends HttpServlet {
     UserService userService = new UserService();
 
@@ -18,7 +21,8 @@ public class EditProfileServlet extends HttpServlet {
         if (userService.getCurrentUser(request) == null) {
             response.sendRedirect("/login");
         } else {
-            if (userService.edit(request)) {
+            Part filePart = request.getPart("file");
+            if (userService.edit(request, filePart, getServletContext().getRealPath("/files/users"))) {
                 User currentUser = userService.authenticate(request);
                 userService.authorize(currentUser, request);
                 response.sendRedirect("/profile");
@@ -44,7 +48,7 @@ public class EditProfileServlet extends HttpServlet {
             pw.println("<a href='/news'>News</a>");
             pw.println("<a href='/analysis'>Analysis</a>");
             pw.println("<a href='/crypto'>Crypto</a>");
-            pw.println("<form method='post'>" +
+            pw.println("<form method='post' enctype='multipart/form-data'>" +
                     "Email:<input type='text' name='email' value='" + user.getEmail() + "'required><br>" +
                     "Password:<input type='password' name='password' value='" + user.getPassword() + "' required><br>" +
                     "Surname: <input type='text' name='surname' value= '" + user.getSurname() + "'required><br>"  +
@@ -59,6 +63,7 @@ public class EditProfileServlet extends HttpServlet {
                     }
 
                     pw.println("Position: <input type='text' name='position' value='" + user.getPosition() +"'><br>" +
+                            "<input type='file' name='file'>" +
                     "<input type='submit' name='submit'>" +
                     "</form>"
             );

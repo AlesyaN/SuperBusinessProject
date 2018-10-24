@@ -41,9 +41,9 @@ public class UserService {
         session.setAttribute("current_user", currentUser);
     }
 
-    public boolean register(HttpServletRequest request, Part filePart, String filename, String path) {
+    public boolean register(HttpServletRequest request, Part filePart, String path) {
         if (emailIsCorrect(request.getParameter("email")) && userDAO.emailIsUnique(request.getParameter("email"))) {
-            userDAO.register(request, filePart, filename, path);
+            userDAO.register(request, filePart, path);
             authorize(userDAO.getUserByEmail(request.getParameter("email")), request);
             return true;
         } else {
@@ -57,10 +57,10 @@ public class UserService {
         return m.find();
     }
 
-    public boolean edit(HttpServletRequest request) {
+    public boolean edit(HttpServletRequest request, Part filePart, String realPath) {
         if (emailIsCorrect(request.getParameter("email"))
                 && userDAO.emailIsUnique(request.getParameter("email"), request)) {
-            userDAO.edit(request);
+            userDAO.edit(request, filePart, realPath);
             return true;
         } else {
             return false;

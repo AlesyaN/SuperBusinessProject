@@ -15,13 +15,11 @@ public class SignUpServlet extends HttpServlet {
     UserService userService = new UserService();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Part filePart = request.getPart("file");
-        String fileName = getFileName(filePart);
         if (userService.getCurrentUser(request) != null) {
             response.sendRedirect("/main");
         } else {
-
-            if (userService.register(request, filePart, fileName, getServletContext().getRealPath("/files/users"))) {
+            Part filePart = request.getPart("file");
+            if (userService.register(request, filePart, getServletContext().getRealPath("/files/users"))) {
                 response.sendRedirect("/profile");
             } else {
                 response.sendRedirect("/sign-up?id=problem");
@@ -29,16 +27,6 @@ public class SignUpServlet extends HttpServlet {
         }
     }
 
-    private String getFileName(final Part part) {
-        final String partHeader = part.getHeader("content-disposition");
-        for (String content : part.getHeader("content-disposition").split(";")) {
-            if (content.trim().startsWith("filename")) {
-                return content.substring(
-                        content.indexOf('=') + 1).trim().replace("\"", "");
-            }
-        }
-        return null;
-    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (userService.getCurrentUser(request) != null) {
