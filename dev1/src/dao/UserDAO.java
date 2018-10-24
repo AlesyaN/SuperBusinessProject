@@ -4,6 +4,8 @@ import entities.User;
 import services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -33,7 +35,8 @@ public class UserDAO {
                     getExperienceByUserId(rs.getInt("id")),
                     rs.getString("position"),
                     rs.getString("email"),
-                    rs.getString("password")
+                    rs.getString("password"),
+                    rs.getString("pic_path")
             );
         } catch (SQLException e) {
             e.printStackTrace();
@@ -100,7 +103,8 @@ public class UserDAO {
                         getExperienceByUserId(rs.getInt("id")),
                         rs.getString("position"),
                         rs.getString("email"),
-                        rs.getString("password")
+                        rs.getString("password"),
+                        rs.getString("pic_path")
                 ));
             }
         } catch (SQLException e) {
@@ -109,8 +113,8 @@ public class UserDAO {
         return users;
     }
 
-    public void register(HttpServletRequest request) {
-        int id = insertIntoUser(request);
+    public void register(HttpServletRequest request, Part filePart, String filename, String path) {
+        int id = insertIntoUser(request, filePart, filename, path);
         insertIntoSE(request, id);
     }
 
@@ -146,7 +150,7 @@ public class UserDAO {
         return -1;
     }
 
-    private int insertIntoUser(HttpServletRequest request) {
+    private int insertIntoUser(HttpServletRequest request, Part filePart, String filename, String path) {
         PreparedStatement ps = null;
         try {
             ps = connection.prepareStatement("insert into \"user\"(surname, name," +
@@ -163,7 +167,59 @@ public class UserDAO {
             ps.setString(9, request.getParameter("password"));
             ResultSet rs = ps.executeQuery();
             rs.next();
-            return rs.getInt("id");
+            int userId = rs.getInt("id");
+            System.out.println(userId);
+            File file = new File(path + File.separator + userId);
+            file.mkdirs();
+            OutputStream out = null;
+            InputStream filecontent = null;
+            String ext = filename.substring(filename.lastIndexOf("."));
+            String fileName = System.currentTimeMillis() + "";
+            String fullpath = path + File.separator +  userId + File.separator + fileName + ext;
+            System.out.println(fullpath);
+            try {
+                try {
+                    out = new FileOutputStream(new File(fullpath));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    filecontent = filePart.getInputStream();
+                    int read = 0;
+                    final byte[] bytes = new byte[1024];
+
+                    while ((read = filecontent.read(bytes)) != -1) {
+                        out.write(bytes, 0, read);
+                    }
+
+                } catch (FileNotFoundException fne) {
+                    fne.printStackTrace();}
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } finally {
+                try {
+                    if (out != null) {
+
+                        out.close();
+                    }
+                    if (filecontent != null) {
+                        filecontent.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            try {
+                ps = connection.prepareStatement("update \"user\" set pic_path=? where id=?");
+                ps.setString(1, "/files/users/" + userId + "/" + fileName + ext);
+                ps.setInt(2, userId);
+                ps.execute();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return userId;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -232,6 +288,7 @@ public class UserDAO {
         params.add("place_of_birth");
         params.add("education");
         params.add("position");
+        params.add("pic_path");
         try {
             String statement1  = "update \"user\" set ";
             String statement2 = "=? where id=?";
@@ -271,7 +328,8 @@ public class UserDAO {
                     getExperienceByUserId(rs.getInt("id")),
                     rs.getString("position"),
                     rs.getString("email"),
-                    rs.getString("password")
+                    rs.getString("password"),
+                    rs.getString("pic_path")
             );
         } catch (SQLException e) {
             e.printStackTrace();

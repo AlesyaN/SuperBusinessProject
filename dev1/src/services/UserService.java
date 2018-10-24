@@ -5,6 +5,7 @@ import entities.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,9 +41,9 @@ public class UserService {
         session.setAttribute("current_user", currentUser);
     }
 
-    public boolean register(HttpServletRequest request) {
+    public boolean register(HttpServletRequest request, Part filePart, String filename, String path) {
         if (emailIsCorrect(request.getParameter("email")) && userDAO.emailIsUnique(request.getParameter("email"))) {
-            userDAO.register(request);
+            userDAO.register(request, filePart, filename, path);
             authorize(userDAO.getUserByEmail(request.getParameter("email")), request);
             return true;
         } else {

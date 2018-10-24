@@ -10,9 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.*;
-import java.nio.file.Paths;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @MultipartConfig
 public class NewPostServlet extends HttpServlet {
