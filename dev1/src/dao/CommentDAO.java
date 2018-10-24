@@ -30,7 +30,7 @@ public class CommentDAO {
                         rs.getInt("id"),
                         userDAO.getUserById(rs.getInt("author_id")),
                         postDAO.getPostById(rs.getInt("news_id")),
-                        rs.getDate("date"),
+                        rs.getTimestamp("date"),
                         rs.getString("text")
                 ));
             }
@@ -41,13 +41,26 @@ public class CommentDAO {
         return null;
     }
 
-    public void saveComment(Integer authorId, Integer newsId, String text) {
+    public int saveComment(Integer authorId, Integer newsId, String text) {
         try {
             PreparedStatement ps = connection.prepareStatement("insert into comment (author_id, news_id, text, \"date\")" +
-                    " values(?,?,?, 'now')");
+                    " values(?,?,?, 'now') returning id");
             ps.setInt(1, authorId);
             ps.setInt(2, newsId);
             ps.setString(3,  text);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            return rs.getInt("id");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public void deleteCommentById(int id) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("delete from comment where id =?");
+            ps.setInt(1, id);
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();

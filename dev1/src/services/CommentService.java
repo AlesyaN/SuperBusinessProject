@@ -15,11 +15,16 @@ public class CommentService {
         return commentDAO.getCommentsByPost(post);
     }
 
-    public void saveComment(HttpServletRequest request) {
-        commentDAO.saveComment(
+    public int saveComment(HttpServletRequest request) {
+        return commentDAO.saveComment(
                 userService.getCurrentUser(request).getId(),
-                Integer.parseInt(request.getPathInfo().substring(1)),
+                Integer.parseInt(request.getParameter("id")),
                 request.getParameter("text")
         );
+    }
+
+    public void deleteComment(HttpServletRequest request) {
+        System.out.println(request.getParameter("id"));
+        commentDAO.deleteCommentById(Integer.parseInt(request.getParameter("id")));
     }
 }

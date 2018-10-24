@@ -17,8 +17,9 @@ public class User {
     private String position;
     private String email;
     private String password;
+    private String picPath;
 
-    public User(int id, String surname, String name, String patronymic, Date dateOfBirth, String placeOfBirth, String education, Map<String, Integer> experience, String position, String email, String password) {
+    public User(int id, String surname, String name, String patronymic, Date dateOfBirth, String placeOfBirth, String education, Map<String, Integer> experience, String position, String email, String password, String picPath) {
         this.id = id;
         this.surname = surname;
         this.name = name;
@@ -30,8 +31,12 @@ public class User {
         this.position = position;
         this.email = email;
         this.password = password;
+        this.picPath = picPath;
     }
 
+    public String getPicPath() {
+        return picPath;
+    }
 
     public String getPassword() {
         return password;

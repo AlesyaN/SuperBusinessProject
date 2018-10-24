@@ -38,6 +38,7 @@ public class ProfileServlet extends HttpServlet {
             pw.println("<a href='/crypto'>Crypto</a><br>");
             pw.println(
                     "<b>User #" + user.getId() + "</b><br>" +
+                            "<img src='" + user.getPicPath() + "'><br>" +
                             "<b>Name:</b>" + user.getFullName() + "<br>" +
                             "<b>Date of birth:</b>" + user.getDateOfBirthToString() + "<br>" +
                             "<b>Place of birth:</b>" + user.getPlaceOfBirth() + "<br>" +
