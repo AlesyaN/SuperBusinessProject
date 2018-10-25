@@ -32,11 +32,12 @@ public class AnalysisServlet extends HttpServlet {
         if (request.getPathInfo() == null) {
             Template t = Helper
                     .getConfig(request.getServletContext())
-                    .getTemplate("analysis_list.ftl");
+                    .getTemplate("analysis.ftl");
             HashMap<String, Object> root = new HashMap<>();
             root.put("form_url", request.getRequestURI());
             root.put("user", userService.getCurrentUser(request));
             root.put("posts", postService.getAnalysis());
+            root.put("page", "analysis");
             try {
                 t.process(root, response.getWriter());
             } catch (TemplateException e) {

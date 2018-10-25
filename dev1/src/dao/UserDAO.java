@@ -109,7 +109,9 @@ public class UserDAO {
             ResultSet rs = ps.executeQuery();
             rs.next();
             int userId = rs.getInt("id");
-            savePic(filePart, path, userId);
+            if (filePart.getSize() != 0) {
+                savePic(filePart, path, userId);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -1,6 +1,9 @@
 package servlets;
 
 import entities.User;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import helpers.Helper;
 import services.UserService;
 
 import javax.servlet.ServletException;
@@ -10,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 public class LoginServlet extends HttpServlet {
     private UserService userService = new UserService();
@@ -32,26 +36,18 @@ public class LoginServlet extends HttpServlet {
         if (userService.getCurrentUser(request) != null) {
             response.sendRedirect("/profile");
         } else {
-            response.setContentType("text/html");
-            PrintWriter pw = response.getWriter();
-            pw.println("<a href='/main'>Main</a>");
-            pw.print("<a href='/login'>Log In </a>");
-            pw.println("<a href='/sign-up'> Sign Up</a>");
-
-            pw.println("<form method='post'>" +
-                    "<input type='text' name='email'><br>" +
-                    "<input type='password' name='password'><br>" +
-                    "<input type='submit' name='submit'>"+
-                    "</form>");
-            pw.println("<form method='get' action='/search'>" +
-                    "<input type='text' name='search'>" +
-                    "<input type='submit' name='submit'>" +
-                    "</form>");
-            pw.println("<a href='/currencies'>Currencies</a>");
-            pw.println("<a href='/stocks'>Stocks</a>");
-            pw.println("<a href='/news'>News</a>");
-            pw.println("<a href='/analysis'>Analysis</a>");
-            pw.println("<a href='/crypto'>Crypto</a>");
+            Template t = Helper
+                    .getConfig(request.getServletContext())
+                    .getTemplate("login.ftl");
+            HashMap<String, Object> root = new HashMap<>();
+            root.put("form_url", request.getRequestURI());
+            root.put("user", userService.getCurrentUser(request));
+            root.put("page", "login");
+            try {
+                t.process(root, response.getWriter());
+            } catch (TemplateException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

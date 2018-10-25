@@ -37,42 +37,18 @@ public class SignUpServlet extends HttpServlet {
         if (userService.getCurrentUser(request) != null) {
             response.sendRedirect("/main");
         } else {
-//            Template t = Helper
-//                    .getConfig(request.getServletContext())
-//                    .getTemplate("signup.ftl.ftl");
-//            HashMap<String, Object> root = new HashMap<>();
-//            root.put("form_url", request.getRequestURI());
-//            try {
-//                t.process(root, response.getWriter());
-//            } catch (TemplateException e) {
-//                e.printStackTrace();
-//            }
-            response.setContentType("text/html");
-            PrintWriter pw = response.getWriter();
-            pw.println("<a href='/main'>Main</a>");
-            pw.print("<a href='/login'>Log In </a>");
-            pw.println("<a href='/sign-up'> Sign Up</a>");
-            pw.println("<a href='/currencies'>Currencies</a>");
-            pw.println("<a href='/stocks'>Stocks</a>");
-            pw.println("<a href='/news'>News</a>");
-            pw.println("<a href='/analysis'>Analysis</a>");
-            pw.println("<a href='/crypto'>Crypto</a>");
-            pw.println("<form method='post' enctype='multipart/form-data'>" +
-                    "Email:<input type='text' name='email' required><br>" +
-                    "Password:<input type='password' name='password' required><br>" +
-                    "Surname: <input type='text' name='surname' required><br>" +
-                    "Name: <input type='text' name='name' required><br>" +
-                    "Patronymic: <input type='text' name='patronymic'><br>" +
-                    "Date of birth: <input type='text' name='dateOfBirth' required><br>" +
-                    "Place of birth: <input type='text' name='placeOfBirth'><br>" +
-                    "Education: <input type='text' name='education'><br>" +
-                    "Scope: <input type='text' name='scope'> " +
-                    "Experience: <input type='text' name='experience'><br>" +
-                    "Position: <input type='text' name='position'><br>" +
-                    "Avatar: <input type='file' name='file'><br>" +
-                    "<input type='submit' name='submit'>" +
-                    "</form>"
-                );
+            Template t = Helper
+                    .getConfig(request.getServletContext())
+                    .getTemplate("signup.ftl");
+            HashMap<String, Object> root = new HashMap<>();
+            root.put("form_url", request.getRequestURI());
+            root.put("page", "sign-up");
+            root.put("user", userService.getCurrentUser(request));
+            try {
+                t.process(root, response.getWriter());
+            } catch (TemplateException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

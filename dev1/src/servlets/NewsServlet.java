@@ -33,12 +33,12 @@ public class NewsServlet extends HttpServlet {
         if (request.getPathInfo() == null) {
             Template t = Helper
                     .getConfig(request.getServletContext())
-                    .getTemplate("news_list.ftl");
+                    .getTemplate("news.ftl");
             HashMap<String, Object> root = new HashMap<>();
             root.put("form_url", request.getRequestURI());
             root.put("user", userService.getCurrentUser(request));
             root.put("posts", postService.getNews());
-
+            root.put("page", "news");
             try {
                 t.process(root, response.getWriter());
             } catch (TemplateException e) {

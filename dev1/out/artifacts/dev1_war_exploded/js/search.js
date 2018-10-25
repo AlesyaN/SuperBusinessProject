@@ -15,7 +15,7 @@ const autoComplete = (inputId) => {
                     `<div class="article-item">
                         <div class="row">
                             <div class="col-4">
-                                <img src="pic.jpeg" width="100px" height="100px" alt="Responsive image">
+                                <img src="../WEB-INF/templates/pic.jpeg" width="100px" height="100px" alt="Responsive image">
                             </div>
                             <div class="col-8">
                                 <h3>${post['title']}</h3>

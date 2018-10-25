@@ -22,7 +22,7 @@ public class PostDAO {
     public List<Post> getMainPosts() {
         List<Post> mainPosts = new ArrayList<>();
         List<Post> posts = getPosts();
-        for (int i = posts.size() - 1; i > posts.size() - 5; i--) {
+        for (int i = posts.size() - 1; i > posts.size() - 6; i--) {
             mainPosts.add(posts.get(i));
         }
         return mainPosts;
@@ -31,7 +31,7 @@ public class PostDAO {
     public List<Post> getPosts() {
         List<Post> posts = new ArrayList<>();
         try {
-            PreparedStatement ps = connection.prepareStatement("select * from news");
+            PreparedStatement ps = connection.prepareStatement("select * from news ORDER BY \"date\"");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 posts.add(new Post(
