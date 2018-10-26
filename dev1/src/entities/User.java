@@ -13,13 +13,14 @@ public class User {
     private Date dateOfBirth;
     private String placeOfBirth;
     private String education;
-    private Map<String, Integer> experience;
+    private Integer experience;
+    private String scope;
     private String position;
     private String email;
     private String password;
     private String picPath;
 
-    public User(int id, String surname, String name, String patronymic, Date dateOfBirth, String placeOfBirth, String education, Map<String, Integer> experience, String position, String email, String password, String picPath) {
+    public User(int id, String surname, String name, String patronymic, Date dateOfBirth, String placeOfBirth, String education, Integer experience, String scope, String position, String email, String password, String picPath) {
         this.id = id;
         this.surname = surname;
         this.name = name;
@@ -28,6 +29,7 @@ public class User {
         this.placeOfBirth = placeOfBirth;
         this.education = education;
         this.experience = experience;
+        this.scope = scope;
         this.position = position;
         this.email = email;
         this.password = password;
@@ -63,8 +65,12 @@ public class User {
         return education;
     }
 
-    public Map<String, Integer> getExperience() {
+    public Integer getExperience() {
         return experience;
+    }
+
+    public String getScope() {
+        return scope;
     }
 
     public String getPosition() {

@@ -43,7 +43,8 @@ public class ProfileServlet extends HttpServlet {
                             "<b>Date of birth:</b>" + user.getDateOfBirthToString() + "<br>" +
                             "<b>Place of birth:</b>" + user.getPlaceOfBirth() + "<br>" +
                             "<b>Education:</b>" + user.getEducation() + "<br>" +
-                            "<b>Experience:</b>" + user.getExperience().toString() + "<br>" +
+                            "<b>Experience:</b>" + user.getExperience() + "<br>" +
+                            "<b>Scope:</b>" + user.getScope() + "<br>" +
                             "<b>Position:</b>" + user.getPosition() + "<br>"+
                     "<a href='/edit-profile'>Edit</a>");
         }

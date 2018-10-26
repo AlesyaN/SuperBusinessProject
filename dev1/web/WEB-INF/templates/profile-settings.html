@@ -7,7 +7,9 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="css/style.css">
+        <script src="js/script.js"></script>
+
     </head>
     <body>
          <div class="page-wrapper">
@@ -48,47 +50,45 @@
 
                     <ul class="nav nav-pills justify-content-end">
                       <li class="nav-item">
-                            <a href="#" class="nav-link">Profile</a>
+                            <a href="#" class="nav-link active">Profile</a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">Log in</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link active">Sign up</a>
+                            <a href="#" class="nav-link">Sign up</a>
                         </li>
-
+                        
                     </ul>
 
                 </div>
                     <div class="col-1"></div>
-
+                
             </nav>
          </div>
          <!-- end of navbar -->
     </div>
 
-        <div class="row align-items-center signup">
-            <div class="col">
-
-                    <p align="center">To have more options you should fill all the fields!</p>
-                    <form>
+        <div class="settings">
+            <form>
               <div class="form-group row">
                 <div class="col-3"></div>
                 <div class="col-6">
                     <label for="exampleFormControlFile1">You can change your profile pic:</label>
                 <input type="file" class="form-control-file" id="exampleFormControlFile1">
                 </div>
-
+                
                 <div class="col-3"></div>
               </div>
             </form>
 
             <form>
-                <div class="form-group row">
+
+              <div class="form-group row">
                     <div class="col-3"></div>
-                    <label for="login" class="col-2 col-form-label">Login*</label>
+                    <label for="login" class="col-2 col-form-label">Change login</label>
                     <div class="col-4">
-                    <input type="text" class="form-control" id="login" placeholder="Login" required onblur="validateForm('login', /[a-zA-Z][0-9a-zA-Z]{4,15}/, 'login_msg', 'Login should contain only characters A-Z, a-z and digits and length 5-16')">
+                    <input type="text" class="form-control" id="login" placeholder="Login" value="Old login here" required onblur="validateForm('login', /[a-zA-Z][0-9a-zA-Z]{4,15}/, 'login_msg', 'Login should contain only characters A-Z, a-z and digits and length 5-16')">
                     <div id="login_msg"></div>
                     </div>
                     <div class="col-3"></div>
@@ -96,9 +96,9 @@
 
                 <div class="form-group row">
                     <div class="col-3"></div>
-                    <label for="email" class="col-2 col-form-label">Email*</label>
+                    <label for="email" class="col-2 col-form-label">Change email</label>
                     <div class="col-4">
-                    <input type="text" class="form-control" id="email" placeholder="Email" required required onblur="validateForm('email', /[a-zA-Z][0-9a-zA-Z.]*@([a-zA-Z][0-9a-zA-Z]+\.)+[a-zA-Z]+/, 'email_msg', 'Email should be like example123@mail.com')">
+                    <input type="text" class="form-control" id="email" placeholder="Email" value="Old email here" required required onblur="validateForm('email', /[a-zA-Z][0-9a-zA-Z.]*@([a-zA-Z][0-9a-zA-Z]+\.)+[a-zA-Z]+/, 'email_msg', 'Email should be like example123@mail.com')">
                     <div id="email_msg"></div>
                     </div>
                     <div class="col-3"></div>
@@ -106,9 +106,9 @@
 
                   <div class="form-group row">
                     <div class="col-3"></div>
-                    <label for="password" class="col-2 col-form-label">Password*</label>
+                    <label for="password" class="col-2 col-form-label">Change password</label>
                     <div class="col-4">
-                    <input type="password" class="form-control" id="password" placeholder="Password" required onblur="validateForm('password', /[0-9a-zA-Z!@#$%^&*()+-_=]{8,16}/, 'password_msg', 'Password should contain only characters A-Z, a-z, digits, special symbols: !@#$%^&*()+-_= and length 8-16')">
+                    <input type="password" class="form-control" id="password" placeholder="Password" value="Old password here"required onblur="validateForm('password', /[0-9a-zA-Z!@#$%^&*()+-_=]{8,16}/, 'password_msg', 'Password should contain only characters A-Z, a-z, digits, special symbols: !@#$%^&*()+-_= and length 8-16')">
                     <div id="password_msg"></div>
                     </div>
                     <div class="col-3"></div>
@@ -116,104 +116,119 @@
 
                   <div class="form-group row">
                     <div class="col-3"></div>
-                    <label for="repeat_password" class="col-2 col-form-label">Repeat password*</label>
+                    <label for="repeat_password" class="col-2 col-form-label">Repeat password</label>
                     <div class="col-4">
-                    <input type="password" class="form-control" id="repeat_password" placeholder="Repeat password" required onblur="repeatPassword()">
+                    <input type="password" class="form-control" id="repeat_password" placeholder="Repeat password" value="old password here" required onblur="repeatPassword()">
                     <div id="repeat_password_msg"></div>
                     </div>
                     <div class="col-3"></div>
                   </div>
-
                   <div class="form-group row">
                     <div class="col-3"></div>
-                    <label for="firstname" class="col-2 col-form-label">First name</label>
+                    <label for="firstname" class="col-2 col-form-label">Change first name</label>
                     <div class="col-4">
-                    <input type="text" class="form-control" id="firstname" placeholder="First name">
+                    <input type="text" class="form-control" id="firstname" placeholder="First name" value="Old name here">
+                    </div>
+                    <div class="col-3"></div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-3"></div>
+                    <label for="lastname" class="col-2 col-form-label">Change last name</label>
+                    <div class="col-4">
+                    <input type="text" class="form-control" id="lastname" placeholder="Last name" value="Old last name here">
+                    </div>
+                    <div class="col-3"></div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-3"></div>
+                    <label for="birthdate" class="col-2 col-form-label">Change birth date</label>
+                    <div class="col-4">
+                    <input type="text" class="form-control" id="birthdate" placeholder="Birth date" value="Old birth date">
+                    </div>
+                    <div class="col-3"></div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-3"></div>
+                    <label for="birthplace" class="col-2 col-form-label">Change birth place</label>
+                    <div class="col-4">
+                    <input type="text" class="form-control" id="birthplace" placeholder="Birth place" value="old birth place">
+                    </div>
+                    <div class="col-3"></div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-3"></div>
+                    <label for="edu" class="col-2 col-form-label">Change education</label>
+                    <div class="col-4">
+                    <input type="text" class="form-control" id="edu" placeholder="Education" value="old edu">
+                    </div>
+                    <div class="col-3"></div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-3"></div>
+                    <label for="scope" class="col-2 col-form-label">Change scope of work</label>
+                    <div class="col-4">
+                    <input type="text" class="form-control" id="scope" placeholder="Scope" value="old scope">
+                    </div>
+                    <div class="col-3"></div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-3"></div>
+                    <label for="company" class="col-2 col-form-label">Change company</label>
+                    <div class="col-4">
+                    <input type="text" class="form-control" id="company" placeholder="Company" value="old company">
+                    </div>
+                    <div class="col-3"></div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-3"></div>
+                    <label for="position" class="col-2 col-form-label">Change position</label>
+                    <div class="col-4">
+                    <input type="text" class="form-control" id="position" placeholder="Position" value="old position">
                     </div>
                     <div class="col-3"></div>
                   </div>
 
                   <div class="form-group row">
                     <div class="col-3"></div>
-                    <label for="lastname" class="col-2 col-form-label">Last name</label>
+                    <label for="experience" class="col-2 col-form-label">Change work experience</label>
                     <div class="col-4">
-                    <input type="text" class="form-control" id="lastname" placeholder="Last name">
+                    <input type="text" class="form-control" id="experience" placeholder="Work experience" value="old experience">
                     </div>
-                    <div class="col-3"></div>
-                  </div>
 
-                  <div class="form-group row">
-                    <div class="col-3"></div>
-                    <label for="birthdate" class="col-2 col-form-label">Birth date</label>
-                    <div class="col-4">
-                    <input type="text" class="form-control" id="birthdate" placeholder="Birth date">
-                    </div>
-                    <div class="col-3"></div>
-                  </div>
-
-                  <div class="form-group row">
-                    <div class="col-3"></div>
-                    <label for="birthplace" class="col-2 col-form-label">Birth place</label>
-                    <div class="col-4">
-                    <input type="text" class="form-control" id="birthplace" placeholder="Birth place">
-                    </div>
-                    <div class="col-3"></div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-3"></div>
-                    <label for="edu" class="col-2 col-form-label">Education</label>
-                    <div class="col-4">
-                    <input type="text" class="form-control" id="edu" placeholder="Education">
-                    </div>
-                    <div class="col-3"></div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-3"></div>
-                    <label for="scope" class="col-2 col-form-label">Scope of work</label>
-                    <div class="col-4">
-                    <input type="text" class="form-control" id="scope" placeholder="Scope">
-                    </div>
-                    <div class="col-3"></div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-3"></div>
-                    <label for="company" class="col-2 col-form-label">Company</label>
-                    <div class="col-4">
-                    <input type="text" class="form-control" id="company" placeholder="Company">
-                    </div>
-                    <div class="col-3"></div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-3"></div>
-                    <label for="position" class="col-2 col-form-label">Position</label>
-                    <div class="col-4">
-                    <input type="text" class="form-control" id="position" placeholder="Position">
-                    </div>
-                    <div class="col-3"></div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-3"></div>
-                    <label for="experience" class="col-2 col-form-label">Work experience</label>
-                    <div class="col-4">
-                    <input type="text" class="form-control" id="experience" placeholder="Work experience">
-                    </div>
                     <div class="col-3"></div>
                   </div>
                   <div class="form-group row">
                     <div class="col-3"></div>
                     <div class="col-sm-6">
-                      <button type="submit" class="btn btn-primary" id="submit" onclick="validateForm()">Submit</button>
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="validateForm()">Submit</button>
                     </div>
                     <div class="col-3"></div>
                   </div>
-                </form>
+                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">You have changes</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        ...
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-            </div>
-         </div>
-	</div>
+                </form>
+                <!-- modal window -->
+                
+</div>
 
     <!-- Optional JavaScript -->
-        <script src="script.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
