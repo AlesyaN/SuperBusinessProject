@@ -1,5 +1,9 @@
 package servlets;
 
+import entities.Post;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import helpers.Helper;
 import services.PostService;
 import services.UserService;
 
@@ -10,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.*;
+import java.util.HashMap;
 
 @MultipartConfig
 public class NewPostServlet extends HttpServlet {
@@ -42,32 +47,18 @@ public class NewPostServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (userService.getCurrentUser(request) != null) {
-            response.setContentType("text/html");
-            PrintWriter pw = response.getWriter();
-            if (userService.getCurrentUser(request) != null) {
-                pw.println("<a href='/profile'>Profile</a>");
-            } else {
-                pw.print("<a href='/login'>Log In </a>");
-                pw.println("<a href='/sign-up'> Sign Up</a>");
+            Template t = Helper
+                    .getConfig(request.getServletContext())
+                    .getTemplate("create_post.ftl");
+            HashMap<String, Object> root = new HashMap<>();
+            root.put("form_url", request.getRequestURI());
+            root.put("user", userService.getCurrentUser(request));
+            root.put("page", "new-post");
+            try {
+                t.process(root, response.getWriter());
+            } catch (TemplateException e) {
+                e.printStackTrace();
             }
-            pw.println("<form method='get' action='/search'>" +
-                    "<input type='text' name='search'>" +
-                    "<input type='submit' name='submit'>" +
-                    "</form>");
-            pw.println("<a href='/main'>Main</a>");
-            pw.println("<a href='/currencies'>Currencies</a>");
-            pw.println("<a href='/stocks'>Stocks</a>");
-            pw.println("<a href='/news'>News</a>");
-            pw.println("<a href='/analysis'>Analysis</a>");
-            pw.println("<a href='/crypto'>Crypto</a><br>");
-            pw.println("<form method='post' enctype=\"multipart/form-data\">" +
-                    "<label for='title'>Title:</label><br>" +
-                    "<input type='text' name='title' id='title><br>" +
-                    "<label for='text'>Text:</label><br>" +
-                    "<textarea rows='10' name='text' id='text'></textarea><br>" +
-                    "<input type='file' name='file'><br>" +
-                    "<input type='submit'>" +
-                    "</form>");
         } else {
             response.sendRedirect("/login");
         }

@@ -245,7 +245,7 @@ public class UserDAO {
                     }
                 } else {
                     String value = request.getParameter(param);
-                    if (!request.getParameter(param).equals("") && request.getParameter(param) != null) {
+                    if (request.getParameter(param) != null &&!request.getParameter(param).equals("")) {
                         if (param.equals("date_of_birth")) {
                             ps.setDate(1, java.sql.Date.valueOf(value));
                         } else if (param.equals("experience")) {

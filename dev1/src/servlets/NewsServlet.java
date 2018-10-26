@@ -29,7 +29,6 @@ public class NewsServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("same servlet");
         if (request.getPathInfo() == null) {
             Template t = Helper
                     .getConfig(request.getServletContext())
@@ -47,7 +46,7 @@ public class NewsServlet extends HttpServlet {
         } else {
             Template t = Helper
                     .getConfig(request.getServletContext())
-                    .getTemplate("news_article.ftl");
+                    .getTemplate("article_news.ftl");
             HashMap<String, Object> root = new HashMap<>();
             root.put("form_url", request.getRequestURI());
             root.put("user", userService.getCurrentUser(request));
@@ -57,7 +56,7 @@ public class NewsServlet extends HttpServlet {
             root.put("post", post);
             root.put("likes", likeService.getLikesByPost(post).size());
             root.put("comments", commentService.getCommentsByPost(post));
-            root.put("picture", post.getPicPath());
+            root.put("page", "news");
             try {
                 t.process(root, response.getWriter());
             } catch (TemplateException e) {

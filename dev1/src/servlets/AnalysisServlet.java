@@ -46,7 +46,7 @@ public class AnalysisServlet extends HttpServlet {
         } else {
             Template t = Helper
                     .getConfig(request.getServletContext())
-                    .getTemplate("analysis_article.ftl");
+                    .getTemplate("article_analysis.ftl");
             HashMap<String, Object> root = new HashMap<>();
             root.put("form_url", request.getRequestURI());
             root.put("user", userService.getCurrentUser(request));
@@ -56,7 +56,7 @@ public class AnalysisServlet extends HttpServlet {
             root.put("post", post);
             root.put("likes", likeService.getLikesByPost(post).size());
             root.put("comments", commentService.getCommentsByPost(post));
-            root.put("picture", post.getPicPath());
+            root.put("page", "news");
             try {
                 t.process(root, response.getWriter());
             } catch (TemplateException e) {

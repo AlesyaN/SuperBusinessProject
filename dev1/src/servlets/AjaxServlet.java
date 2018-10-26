@@ -24,6 +24,7 @@ public class AjaxServlet extends HttpServlet {
             int id = commentService.saveComment(request);
             JSONObject jo = new JSONObject();
             jo.put("authorName", userService.getCurrentUser(request).getName());
+            jo.put("authorId", userService.getCurrentUser(request).getId());
             SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
             jo.put("date", df.format(new Date()));
             jo.put("id", id);
