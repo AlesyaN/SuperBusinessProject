@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <#include "navbar.ftl">
@@ -16,33 +16,40 @@
     <div class="row">
         <div class="col-4"></div>
         <div class="col-4">
-        <#if user??>
-            <#if user.picPath??>
+        <#if someuser??>
+            <#if someuser.picPath??>
             <img src="${user.picPath}" width="100px" height="100px" alt="Responsive image">
             </#if>
+            <#if user?? && user=someuser>
             <h3>My Profile</h3>
-            <#if user.getFullName()??>
-            <h3>${user.getFullName()}</h3>
+            <#else >
+             <h3>Profile of</h3>
             </#if>
-            <#if user.getDateOfBirthToString()??>
-            <h4>Date of birth:</h4> ${user.getDateOfBirthToString()}
+            <#if someuser.getFullName()??>
+            <h3>${someuser.getFullName()}</h3>
             </#if>
-            <#if user.placeOfBirth??>
-            <h4>Place of birth:</h4> ${user.placeOfBirth}
+            <#if someuser.getDateOfBirthToString()??>
+            <h4>Date of birth:</h4> ${someuser.getDateOfBirthToString()}
             </#if>
-            <#if user.education??>
-            <h4>Education:</h4> ${user.education}
+            <#if someuser.placeOfBirth??>
+            <h4>Place of birth:</h4> ${someuser.placeOfBirth}
             </#if>
-            <#if user.experience??>
-            <h4>Work experience:</h4> ${user.experience}
+            <#if someuser.education??>
+            <h4>Education:</h4> ${someuser.education}
             </#if>
-            <#if user.scope??>
-            <h4>Scope of work:</h4> ${user.scope}
+            <#if someuser.experience??>
+            <h4>Work experience:</h4> ${someuser.experience}
             </#if>
-            <#if user.position??>
-            <h4>Current position:</h4> ${user.position}
+            <#if someuser.scope??>
+            <h4>Scope of work:</h4> ${someuser.scope}
             </#if>
+            <#if someuser.position??>
+            <h4>Current position:</h4> ${someuser.position}
+            </#if>
+            <br>
+            <#if user?? && user=someuser>
             <a href="/edit-profile" class="btn btn-primary">Settings</a>
+            </#if>
         </#if>
         </div>
         <div class="col-4"></div>

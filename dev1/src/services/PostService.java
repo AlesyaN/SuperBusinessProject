@@ -17,6 +17,8 @@ public class PostService {
         return postDAO.getMainPosts();
     }
 
+    public List<Post> getAllPosts() {return  postDAO.getPosts();};
+
     public List<Post> getNews() {
         return postDAO.getNews();
     }
@@ -35,4 +37,7 @@ public class PostService {
     }
 
 
+    public List<Post> getPostsByTitleMask(String query) {
+        return postDAO.getPostsByTitleMask(query);
+    }
 }

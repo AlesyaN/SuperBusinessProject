@@ -23,16 +23,33 @@ public class ProfileServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = userService.getCurrentUser(request);
-        if (user == null) {
-            response.sendRedirect("/login");
+        if (request.getPathInfo() == null) {
+            if (user == null) {
+                response.sendRedirect("/login");
+            } else {
+                Template t = Helper
+                        .getConfig(request.getServletContext())
+                        .getTemplate("profile.ftl");
+                HashMap<String, Object> root = new HashMap<>();
+                root.put("form_url", request.getRequestURI());
+                root.put("user", userService.getCurrentUser(request));
+                root.put("page", "profile");
+                root.put("someuser", userService.getCurrentUser(request));
+                try {
+                    t.process(root, response.getWriter());
+                } catch (TemplateException e) {
+                    e.printStackTrace();
+                }
+            }
         } else {
             Template t = Helper
                     .getConfig(request.getServletContext())
                     .getTemplate("profile.ftl");
             HashMap<String, Object> root = new HashMap<>();
             root.put("form_url", request.getRequestURI());
-            root.put("user", userService.getCurrentUser(request));
+            root.put("someuser", userService.getUserById(Integer.parseInt(request.getPathInfo().substring(1))));
             root.put("page", "profile");
+            root.put("user", userService.getCurrentUser(request));
             try {
                 t.process(root, response.getWriter());
             } catch (TemplateException e) {

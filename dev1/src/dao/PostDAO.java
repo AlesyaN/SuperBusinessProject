@@ -155,4 +155,30 @@ public class PostDAO {
         }
         return null;
     }
+
+    public List<Post> getPostsByTitleMask(String query) {
+        try {
+            PreparedStatement ps = connection.prepareStatement(
+                    "select * from news where title ilike ?"
+            );
+            ps.setString(1, "%" + query + "%");
+            ResultSet rs = ps.executeQuery();
+            List<Post> posts = new ArrayList<>();
+            while (rs.next()) {
+                posts.add(new Post(
+                        rs.getInt("id"),
+                        userDAO.getUserById(rs.getInt("author_id")),
+                        rs.getString("title"),
+                        rs.getString("text"),
+                        rs.getTimestamp("date"),
+                        rs.getString("theme"),
+                        rs.getString("pic_path")
+                ));
+            }
+            return posts;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

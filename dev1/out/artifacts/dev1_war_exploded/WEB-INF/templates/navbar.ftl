@@ -6,18 +6,18 @@
             <div class="col-1"></div>
 
             <nav class="navbar navbar-light bg-light justify-content-end">
-                <form class="form-inline">
+                <div class="form-inline">
                     <a href="/main" class="navbar-brand">Logo</a>
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
+                    <a href="/search" class="btn btn-outline-success my-2 my-sm-0 <#if page="search">active</#if>">Search</a>
+                </div>
             </nav>
             <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
                 <ul class="nav nav-fill nav-pills">
                     <li class="nav-item">
-                        <a href="/currencies" class="nav-link">Currencies</a>
+                        <a href="/currencies" class="nav-link <#if page="currencies">active</#if>">Currencies</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/stocks" class="nav-link">Stocks</a>
+                        <a href="/stocks" class="nav-link <#if page="stocks">active</#if>">Stocks</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle <#if page="news" || page="analysis">active</#if>" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -30,7 +30,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a href="/crypto" class="nav-link">Crypto</a>
+                        <a href="/crypto" class="nav-link <#if page="crypto">active</#if>">Crypto</a>
                     </li>
                 </ul>
                 <div class="col-2"></div>
@@ -38,7 +38,7 @@
                 <ul class="nav nav-pills justify-content-end">
                     <#if user??>
                     <li class="nav-item">
-                        <a href="/profile" class="nav-link">Profile</a>
+                        <a href="/profile" class="nav-link"<#if page="profile">active</#if>>Profile</a>
                     </li>
                     <#else>
                     <li class="nav-item">
