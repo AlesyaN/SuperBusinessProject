@@ -13,11 +13,7 @@
         <servlet-name>Currencies</servlet-name>
         <servlet-class>servlets.CurrenciesServlet</servlet-class>
     </servlet>
-    
-    <servlet>
-        <servlet-name>Stocks</servlet-name>
-        <servlet-class>servlets.StocksServlet</servlet-class>
-    </servlet>
+
     
     <servlet>
         <servlet-name>News</servlet-name>
@@ -118,11 +114,6 @@
     <servlet-mapping>
         <servlet-name>News</servlet-name>
         <url-pattern>/news/*</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>Stocks</servlet-name>
-        <url-pattern>/stocks/*</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
