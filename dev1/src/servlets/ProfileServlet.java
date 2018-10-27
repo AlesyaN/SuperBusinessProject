@@ -8,6 +8,7 @@ import helpers.Helper;
 import services.UserService;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,9 @@ public class ProfileServlet extends HttpServlet {
     UserService userService = new UserService();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("logout") != null && !request.getParameter("logout").equals("")) {
+            Cookie cookie = new Cookie("uid", "");
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
             userService.logOut(request);
             response.sendRedirect("/main");
         }

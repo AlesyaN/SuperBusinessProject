@@ -3,6 +3,7 @@ package services;
 import dao.UserDAO;
 import entities.User;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
@@ -39,6 +40,7 @@ public class UserService {
     public void authorize(User currentUser, HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute("current_user", currentUser);
+
     }
 
     public boolean register(HttpServletRequest request, Part filePart, String path) {

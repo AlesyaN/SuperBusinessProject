@@ -9,6 +9,7 @@ import services.CommentService;
 import services.PostService;
 import services.UserService;
 
+import javax.servlet.http.Cookie;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -23,6 +24,13 @@ public class MainServlet extends javax.servlet.http.HttpServlet {
     }
 
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+        System.out.println(userService.getCurrentUser(request));
+        Cookie [] cookies = request.getCookies();
+        for (Cookie cookie: cookies) {
+            if (cookie.getName().equals("uid")) {
+                System.out.println(cookie.getName() + " " + cookie.getValue());
+            }
+        }
         Template t = Helper
                 .getConfig(request.getServletContext())
                 .getTemplate("main.ftl");

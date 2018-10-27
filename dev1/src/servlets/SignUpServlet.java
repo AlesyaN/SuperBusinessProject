@@ -8,10 +8,7 @@ import services.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.http.*;
 import java.io.*;
 import java.util.HashMap;
 
@@ -25,6 +22,8 @@ public class SignUpServlet extends HttpServlet {
         } else {
             Part filePart = request.getPart("file");
             if (userService.register(request, filePart, getServletContext().getRealPath("/files/users"))) {
+                Cookie cookie = new Cookie("uid", String.valueOf(userService.getCurrentUser(request).getId()));
+                response.addCookie(cookie);
                 response.sendRedirect("/profile");
             } else {
                 response.sendRedirect("/sign-up?id=problem");
