@@ -18,7 +18,10 @@ import java.util.HashMap;
 public class ProfileServlet extends HttpServlet {
     UserService userService = new UserService();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        if (request.getParameter("logout") != null && !request.getParameter("logout").equals("")) {
+            userService.logOut(request);
+            response.sendRedirect("/main");
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

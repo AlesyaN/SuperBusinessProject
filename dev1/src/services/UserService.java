@@ -72,4 +72,8 @@ public class UserService {
     }
 
 
+    public void logOut(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.setAttribute("current_user", null);
+    }
 }

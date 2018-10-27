@@ -49,6 +49,9 @@
             <br>
             <#if user?? && user=someuser>
             <a href="/edit-profile" class="btn btn-primary">Settings</a>
+            <form method="post">
+                <input type="submit" name="logout" class="btn btn-danger" value="Log out">
+            </form>
             </#if>
         </#if>
         </div>
