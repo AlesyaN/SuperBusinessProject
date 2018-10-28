@@ -18,17 +18,19 @@ public class LikeDAO {
     UserDAO userDAO = new UserDAO();
     PostDAO postDAO = new PostDAO();
 
-    public List<Like> getLikesByPost(Post post) {
+    public List<Like> getLikesByPost(Post post, boolean type) {
         List<Like> likes = new ArrayList<>();
         try {
-            PreparedStatement ps = connection.prepareStatement("select * from \"like\" where news_id=?");
+            PreparedStatement ps = connection.prepareStatement("select * from \"like\" where news_id=? and type=?");
             ps.setInt(1, post.getId());
+            ps.setBoolean(2, type);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 likes.add(new Like(
                    rs.getInt("id" ),
-                        (new UserDAO()).getUserById(rs.getInt("author_id")),
-                        (new PostDAO()).getPostById(rs.getInt("news_id"))
+                    (new UserDAO()).getUserById(rs.getInt("author_id")),
+                    (new PostDAO()).getPostById(rs.getInt("news_id")),
+                    rs.getBoolean("type")
                 ));
             }
         } catch (SQLException e) {
@@ -37,11 +39,12 @@ public class LikeDAO {
         return likes;
     }
 
-    public Like getLikeOnPost(Integer id, User currentUser) {
+    public Like getLikeOnPost(Integer id, User currentUser, boolean type) {
         try {
-            PreparedStatement ps = connection.prepareStatement("select * from \"like\" where news_id=? and author_id = ?");
+            PreparedStatement ps = connection.prepareStatement("select * from \"like\" where news_id=? and author_id = ? and type = ?");
             ps.setInt(1, id);
             ps.setInt(2, currentUser.getId());
+            ps.setBoolean(3, type);
             ResultSet rs = ps.executeQuery();
             if (!rs.isBeforeFirst()) {
                 return null;
@@ -50,7 +53,8 @@ public class LikeDAO {
                 rs.next();
                 return new Like(rs.getInt("id"),
                         userDAO.getUserById(rs.getInt("author_id")),
-                        postDAO.getPostById(rs.getInt("news_id")));
+                        postDAO.getPostById(rs.getInt("news_id")),
+                        rs.getBoolean("type"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -58,7 +62,7 @@ public class LikeDAO {
         return null;
     }
 
-    public void deleteLike(Like like) {
+    public void delete(Like like) {
         try {
             PreparedStatement ps = connection.prepareStatement("delete from \"like\" where id=?");
             ps.setInt(1, like.getId());
@@ -68,11 +72,12 @@ public class LikeDAO {
         }
     }
 
-    public void addLike(int i, User currentUser) {
+    public void add(int i, User currentUser, boolean type) {
         try {
-            PreparedStatement ps = connection.prepareStatement("insert into \"like\"(author_id, news_id) values (?, ?)");
+            PreparedStatement ps = connection.prepareStatement("insert into \"like\"(author_id, news_id, type) values (?, ?, ?)");
             ps.setInt(2, i);
             ps.setInt(1, currentUser.getId());
+            ps.setBoolean(3, type);
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();

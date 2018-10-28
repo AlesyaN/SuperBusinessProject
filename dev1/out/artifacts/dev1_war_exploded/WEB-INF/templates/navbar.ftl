@@ -16,7 +16,7 @@
                     <li class="nav-item">
                         <a href="/currencies" class="nav-link <#if page="currencies">active</#if>">Currencies</a>
                     </li>
-                    
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle <#if page="news" || page="analysis">active</#if>" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">

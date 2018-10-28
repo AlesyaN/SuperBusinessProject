@@ -38,9 +38,19 @@ public class AjaxServlet extends HttpServlet {
         } else if (request.getParameter("ajax").equals("deleteComment")) {
             commentService.deleteComment(request);
         } else if (request.getParameter("ajax").equals("like")) {
-            boolean b = likeService.toggleLike(request);
+            boolean like = likeService.toggle(request, true);
+            boolean dislike = likeService.delete(request, false);
             JSONObject jo = new JSONObject();
-            jo.put("like", b);
+            jo.put("like", like);
+            jo.put("dislike", dislike);
+            response.setContentType("text/json");
+            response.getWriter().println(jo.toString());
+        } else if (request.getParameter("ajax").equals("dislike")) {
+            boolean like = likeService.delete(request, true);
+            boolean dislike = likeService.toggle(request, false);
+            JSONObject jo = new JSONObject();
+            jo.put("like", like);
+            jo.put("dislike", dislike);
             response.setContentType("text/json");
             response.getWriter().println(jo.toString());
         } else if (request.getParameter("ajax").equals("search")) {

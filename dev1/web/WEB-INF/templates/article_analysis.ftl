@@ -29,6 +29,7 @@
                 <div class="col">
                     <#if user??>
                     <button type="button" class="btn btn-success" onclick="like();">Like</button>
+                    <button type="button" class="btn btn-warning" onclick="dislike()">Dislike</button>
                 </#if>
             </div>
             <div class="card">
@@ -36,6 +37,11 @@
                     <div id="likes">${likes}</div> likes
                 </div>
             </div>
+                <div class="card">
+                    <div class="card-body bg-warning text-white">
+                        <div id="dislikes">${dislikes}</div> dislikes
+                    </div>
+                </div>
         </div>
         <hr>
         <#if comments??>
@@ -88,12 +94,46 @@
             success: function (msg) {
                 var likes = document.getElementById("likes");
                 var val = likes.innerHTML;
+                var dislikes = document.getElementById("dislikes");
+                var valdislikes = dislikes.innerHTML;
+                if (msg.dislike) {
+                    valdislikes = +valdislikes - 1;
+                    dislikes.innerHTML = valdislikes;
+                }
                 if (msg.like) {
                     val = +val + 1;
                     likes.innerHTML = val;
                 } else {
                     val = +val - 1;
                     likes.innerHTML = val;
+                }
+            }
+        });
+    }
+
+    function dislike() {
+        $.ajax ({
+            url: "/ajax",
+            type: "post",
+            data: {
+                "ajax": "dislike",
+                "post-id": ${post.id}
+            },
+            success: function(msg) {
+                var likes = document.getElementById("likes");
+                var vallikes = likes.innerHTML;
+                var dislikes = document.getElementById("dislikes");
+                var valdislikes = dislikes.innerHTML;
+                if (msg.like) {
+                    vallikes = +vallikes - 1;
+                    likes.innerHTML = vallikes;
+                }
+                if (msg.dislike) {
+                    valdislikes = +valdislikes + 1;
+                    dislikes.innerHTML = valdislikes;
+                } else {
+                    valdislikes = +valdislikes - 1;
+                    dislikes.innerHTML = valdislikes;
                 }
             }
         });

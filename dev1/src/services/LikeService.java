@@ -11,20 +11,34 @@ public class LikeService {
     LikeDAO likeDAO = new LikeDAO();
     UserService userService = new UserService();
 
-    public List<Like> getLikesByPost(Post post) {
-        return likeDAO.getLikesByPost(post);
+    public List<Like> getLikesByPost(Post post, boolean type) {
+        return likeDAO.getLikesByPost(post, type);
     }
 
-    public boolean toggleLike(HttpServletRequest request) {
+    public boolean toggle(HttpServletRequest request, boolean type) {
         if (userService.getCurrentUser(request) != null) {
-            Like like = likeDAO.getLikeOnPost(Integer.parseInt(request.getParameter("post-id")), userService.getCurrentUser(request));
+            Like like = likeDAO.getLikeOnPost(Integer.parseInt(request.getParameter("post-id")), userService.getCurrentUser(request), type);
             if (like != null) {
-                likeDAO.deleteLike(like);
+                likeDAO.delete(like);
                 return false;
             } else {
-                likeDAO.addLike(Integer.parseInt(request.getParameter("post-id")), userService.getCurrentUser(request));
+                likeDAO.add(Integer.parseInt(request.getParameter("post-id")), userService.getCurrentUser(request), type);
                 return true;
             }
+        }
+        return false;
+    }
+
+    public boolean delete(HttpServletRequest request, boolean type) {
+        if (userService.getCurrentUser(request) != null) {
+            Like like = likeDAO.getLikeOnPost(Integer.parseInt(request.getParameter("post-id")), userService.getCurrentUser(request), type);
+            if (like != null) {
+                likeDAO.delete(like);
+                return true;
+            } else {
+                return false;
+            }
+
         }
         return false;
     }

@@ -23,25 +23,29 @@ public class LoginServlet extends HttpServlet {
         if (userService.getCurrentUser(request) != null) {
             response.sendRedirect("/main");
         } else {
+            boolean flag = false;
             Cookie [] cookies = request.getCookies();
             for (Cookie cookie: cookies) {
                 if (cookie.getName().equals("uid")) {
                     int id = Integer.parseInt(cookie.getValue());
                     User currentUser = userService.getUserById(id);
                     userService.authorize(currentUser, request);
+                    flag = true;
                     response.sendRedirect("/main");
                 }
             }
-            User currentUser = userService.authenticate(request);
-            if (currentUser != null) {
-                userService.authorize(currentUser, request);
-                if (request.getParameter("remember") != null) {
-                    Cookie cookie = new Cookie("uid", String.valueOf(currentUser.getId()));
-                    response.addCookie(cookie);
+            if (!flag) {
+                User currentUser = userService.authenticate(request);
+                if (currentUser != null) {
+                    userService.authorize(currentUser, request);
+                    if (request.getParameter("remember") != null) {
+                        Cookie cookie = new Cookie("uid", String.valueOf(currentUser.getId()));
+                        response.addCookie(cookie);
+                    }
+                    response.sendRedirect("/main");
+                } else {
+                    response.sendRedirect("/login?err_mess=too_bad_login");
                 }
-                response.sendRedirect("/main");
-            } else {
-                response.sendRedirect("/login?err_mess=too_bad_login");
             }
         }
     }

@@ -54,9 +54,10 @@ public class AnalysisServlet extends HttpServlet {
             String id = request.getPathInfo().substring(1);
             Post post = postService.getPostById(Integer.parseInt(id));
             root.put("post", post);
-            root.put("likes", likeService.getLikesByPost(post).size());
+            root.put("dislikes", likeService.getLikesByPost(post, false).size());
+            root.put("likes", likeService.getLikesByPost(post, true).size());
             root.put("comments", commentService.getCommentsByPost(post));
-            root.put("page", "news");
+            root.put("page", "analysis");
             try {
                 t.process(root, response.getWriter());
             } catch (TemplateException e) {
