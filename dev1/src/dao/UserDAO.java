@@ -1,6 +1,7 @@
 package dao;
 
 import entities.User;
+import helpers.Helper;
 import services.UserService;
 
 import javax.servlet.ServletException;
@@ -25,22 +26,7 @@ public class UserDAO {
             PreparedStatement ps = connection.prepareStatement("select * from \"user\" where email=?");
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
-            rs.next();
-            return new User(
-                    rs.getInt("id"),
-                    rs.getString("surname"),
-                    rs.getString("name"),
-                    rs.getString("patronymic"),
-                    rs.getDate("date_of_birth"),
-                    rs.getString("place_of_birth"),
-                    rs.getString("education"),
-                    rs.getInt("experience"),
-                    rs.getString("scope"),
-                    rs.getString("position"),
-                    rs.getString("email"),
-                    rs.getString("password"),
-                    rs.getString("pic_path")
-            );
+            return Helper.makeORMUser(rs);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -48,44 +34,16 @@ public class UserDAO {
     }
 
 
-    public int getLastUserId() {
-        List<User> users = getUsers();
-        users.sort((o1, o2) -> {
-            if (o1.getId() > o2.getId()) {
-                return 1;
-            } else {
-                return -1;
-            }
-        });
-        return users.get(users.size() - 1).getId();
-    }
-
     private List<User> getUsers() {
-        List<User> users = new ArrayList<>();
         try {
             PreparedStatement ps = connection.prepareStatement("select * from \"user\"");
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                users.add(new User(
-                        rs.getInt("id"),
-                        rs.getString("surname"),
-                        rs.getString("name"),
-                        rs.getString("patronymic"),
-                        rs.getDate("date_of_birth"),
-                        rs.getString("place_of_birth"),
-                        rs.getString("education"),
-                        rs.getInt("experience"),
-                        rs.getString("scope"),
-                        rs.getString("position"),
-                        rs.getString("email"),
-                        rs.getString("password"),
-                        rs.getString("pic_path")
-                ));
-            }
+            return Helper.makeORMListOfUsers(rs);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return users;
+        return null;
     }
 
 
@@ -268,22 +226,7 @@ public class UserDAO {
             PreparedStatement ps = connection.prepareStatement("select * from \"user\" where id=?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            rs.next();
-            return new User(
-                    rs.getInt("id"),
-                    rs.getString("surname"),
-                    rs.getString("name"),
-                    rs.getString("patronymic"),
-                    rs.getDate("date_of_birth"),
-                    rs.getString("place_of_birth"),
-                    rs.getString("education"),
-                    rs.getInt("experience"),
-                    rs.getString("scope"),
-                    rs.getString("position"),
-                    rs.getString("email"),
-                    rs.getString("password"),
-                    rs.getString("pic_path")
-            );
+            return Helper.makeORMUser(rs);
         } catch (SQLException e) {
             e.printStackTrace();
         }

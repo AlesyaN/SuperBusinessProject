@@ -2,6 +2,7 @@ package dao;
 
 import entities.Comment;
 import entities.Post;
+import helpers.Helper;
 import services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,17 +25,8 @@ public class CommentDAO {
             PreparedStatement ps = connection.prepareStatement("select * from comment where news_id=?");
             ps.setInt(1, post.getId());
             ResultSet rs = ps.executeQuery();
-            List<Comment> comments = new ArrayList<>();
-            while (rs.next()) {
-                comments.add(new Comment(
-                        rs.getInt("id"),
-                        userDAO.getUserById(rs.getInt("author_id")),
-                        postDAO.getPostById(rs.getInt("news_id")),
-                        rs.getTimestamp("date"),
-                        rs.getString("text")
-                ));
-            }
-            return comments;
+            return Helper.makeORMListOfComments(rs);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -3,6 +3,7 @@ package dao;
 import entities.Like;
 import entities.Post;
 import entities.User;
+import helpers.Helper;
 import services.UserService;
 
 import java.sql.Connection;
@@ -19,24 +20,18 @@ public class LikeDAO {
     PostDAO postDAO = new PostDAO();
 
     public List<Like> getLikesByPost(Post post, boolean type) {
-        List<Like> likes = new ArrayList<>();
+
         try {
             PreparedStatement ps = connection.prepareStatement("select * from \"like\" where news_id=? and type=?");
             ps.setInt(1, post.getId());
             ps.setBoolean(2, type);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                likes.add(new Like(
-                   rs.getInt("id" ),
-                    (new UserDAO()).getUserById(rs.getInt("author_id")),
-                    (new PostDAO()).getPostById(rs.getInt("news_id")),
-                    rs.getBoolean("type")
-                ));
-            }
+            return Helper.makeORMListOfLikes(rs);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return likes;
+        return null;
     }
 
     public Like getLikeOnPost(Integer id, User currentUser, boolean type) {
@@ -46,16 +41,7 @@ public class LikeDAO {
             ps.setInt(2, currentUser.getId());
             ps.setBoolean(3, type);
             ResultSet rs = ps.executeQuery();
-            if (!rs.isBeforeFirst()) {
-                return null;
-
-            } else {
-                rs.next();
-                return new Like(rs.getInt("id"),
-                        userDAO.getUserById(rs.getInt("author_id")),
-                        postDAO.getPostById(rs.getInt("news_id")),
-                        rs.getBoolean("type"));
-            }
+            return Helper.makeORMLike(rs);
         } catch (SQLException e) {
             e.printStackTrace();
         }

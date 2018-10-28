@@ -1,7 +1,9 @@
 package dao;
 
 import entities.Post;
+import helpers.Helper;
 import javafx.geometry.Pos;
+import javafx.scene.shape.HLineTo;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.Part;
@@ -29,25 +31,14 @@ public class PostDAO {
     }
 
     public List<Post> getPosts() {
-        List<Post> posts = new ArrayList<>();
         try {
             PreparedStatement ps = connection.prepareStatement("select * from news ORDER BY \"date\"");
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                posts.add(new Post(
-                       rs.getInt("id"),
-                        userDAO.getUserById(rs.getInt("author_id")),
-                        rs.getString("title"),
-                        rs.getString("text"),
-                        rs.getTimestamp("date"),
-                        rs.getString("theme"),
-                        rs.getString("pic_path")
-                ));
-            }
+            return Helper.makeORMListOfPosts(rs);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return posts;
+        return null;
     }
 
     public List<Post> getNews() {
@@ -77,16 +68,8 @@ public class PostDAO {
             PreparedStatement ps = connection.prepareStatement("select * from news where id=?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            rs.next();
-            return new Post(
-                    rs.getInt("id"),
-                    userDAO.getUserById(rs.getInt("author_id")),
-                    rs.getString("title"),
-                    rs.getString("text"),
-                    rs.getTimestamp("date"),
-                    rs.getString("theme"),
-                    rs.getString("pic_path")
-            );
+            return Helper.makeORMPost(rs);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -163,19 +146,7 @@ public class PostDAO {
             );
             ps.setString(1, "%" + query + "%");
             ResultSet rs = ps.executeQuery();
-            List<Post> posts = new ArrayList<>();
-            while (rs.next()) {
-                posts.add(new Post(
-                        rs.getInt("id"),
-                        userDAO.getUserById(rs.getInt("author_id")),
-                        rs.getString("title"),
-                        rs.getString("text"),
-                        rs.getTimestamp("date"),
-                        rs.getString("theme"),
-                        rs.getString("pic_path")
-                ));
-            }
-            return posts;
+            return Helper.makeORMListOfPosts(rs);
         } catch (SQLException e) {
             e.printStackTrace();
         }
