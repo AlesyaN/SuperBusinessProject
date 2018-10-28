@@ -37,7 +37,7 @@ public class PostService {
     }
 
 
-    public List<Post> getPostsByTitleMask(String query) {
-        return postDAO.getPostsByTitleMask(query);
+    public List<Post> getPostsByTitleMask(String query, boolean news, boolean analysis) {
+        return postDAO.getPostsByTitleMask(query, news, analysis);
     }
 }

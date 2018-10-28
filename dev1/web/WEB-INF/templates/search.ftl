@@ -10,9 +10,8 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <#--<script src="static/jquery-3.3.1.min.js" defer></script>-->
-    <script type="application/javascript"
-            src="/js/jquery-1.9.1.js"></script>
-    <script type="application/javascript" src="/js/search.js"></script>
+
+
 
 </head>
 <body>
@@ -25,10 +24,20 @@
             <div class="row search-form">
                 <div class="col-2"></div>
                 <div class="col-8">
-                    <form class="form-group">
-                        <input class="form-control mr-sm-2" id="search-box" type="text" placeholder="Search"
+                    <form class="form-group" method="get">
+                        <input name="search" class="form-control mr-sm-2" id="search-box" type="text" placeholder="Search"
                                aria-label="Search" oninput="autoComplete('search-box')">
-                        <button class="btn btn-outline-success my-2 my-sm-1" type="submit">Search</button>
+                        <div class="form-check">
+                            <label>
+                                <input id="news" type="checkbox" class="form-check-input" checked="checked" name="news"> News
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label>
+                                <input id="analysis" type="checkbox" class="form-check-input" checked="checked" name="analysis"> Analysis
+                            </label>
+                        </div>
+                        <input class="btn btn-outline-success my-2 my-sm-1" type="submit" value="Search"></input>
                     </form>
                 </div>
                 <div class="col-2"></div>
@@ -61,8 +70,9 @@
 <div class="col-1"></div>
 
 </div>
-
-
+<script type="application/javascript"
+        src="/js/jquery-1.9.1.js"></script>
+<script type="application/javascript" src="/js/search.js"></script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <#--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"-->

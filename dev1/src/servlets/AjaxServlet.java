@@ -54,7 +54,7 @@ public class AjaxServlet extends HttpServlet {
             response.setContentType("text/json");
             response.getWriter().println(jo.toString());
         } else if (request.getParameter("ajax").equals("search")) {
-            List<Post> posts = postService.getPostsByTitleMask(request.getParameter("query"));
+            List<Post> posts = postService.getPostsByTitleMask(request.getParameter("query"), Boolean.parseBoolean(request.getParameter("news")), Boolean.parseBoolean(request.getParameter("analysis")));
             JSONArray ja = new JSONArray();
             for (Post post: posts) {
                 JSONObject jo = new JSONObject();

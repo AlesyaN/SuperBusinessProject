@@ -6,7 +6,6 @@ function insertAll() {
             "ajax": "allposts",
         },
         success: (msg) => {
-            console.log(msg.posts);
             let list = $('#search-list');
             $('.article-item').remove();
             if (msg.posts != null) {
@@ -32,17 +31,24 @@ function insertAll() {
 }
 
 const autoComplete = (inputId) => {
-    let query = $("#search-box").val();
+
+    var query = $("#search-box").val();
+    console.log(document.getElementById("news"));
+    var news = document.getElementById("news").checked;
+    var analysis = document.getElementById("analysis").checked;
+    console.log(news);
+    console.log(analysis);
     if (query.length > 0) {
         $.ajax({
             url: '/ajax',
             type: 'post',
             data: {
                 "ajax": "search",
-                "query": query
+                "query": query,
+                "news": news,
+                "analysis": analysis
             },
             success: (msg) => {
-                console.log(msg.posts);
                 let list = $('#search-list');
                 $('.article-item').remove();
                 if (msg.posts != null) {

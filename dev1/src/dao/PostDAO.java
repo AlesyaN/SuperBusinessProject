@@ -139,12 +139,23 @@ public class PostDAO {
         return null;
     }
 
-    public List<Post> getPostsByTitleMask(String query) {
+    public List<Post> getPostsByTitleMask(String query, boolean news, boolean analysis) {
         try {
+            String request = "select * from news where title ilike ?";
+            if (news && !analysis || !news && analysis) {
+                request += " and theme=?";
+            }
+            System.out.println(request);
+            System.out.println(news + " " + analysis);
             PreparedStatement ps = connection.prepareStatement(
-                    "select * from news where title ilike ?"
+                    request
             );
             ps.setString(1, "%" + query + "%");
+            if (news && !analysis) {
+                ps.setString(2, "news");
+            } else if (!news && analysis) {
+                ps.setString(2, "analysis");
+            }
             ResultSet rs = ps.executeQuery();
             return Helper.makeORMListOfPosts(rs);
         } catch (SQLException e) {
