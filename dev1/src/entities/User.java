@@ -53,8 +53,12 @@ public class User {
     }
 
     public String getDateOfBirthToString() {
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        return df.format(dateOfBirth);
+        if (dateOfBirth != null) {
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            return df.format(dateOfBirth);
+        } else {
+            return "";
+        }
     }
 
     public String getPlaceOfBirth() {

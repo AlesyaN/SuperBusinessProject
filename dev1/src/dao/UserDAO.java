@@ -56,18 +56,31 @@ public class UserDAO {
             ps.setString(1, request.getParameter("surname"));
             ps.setString(2, request.getParameter("name"));
             ps.setString(3, request.getParameter("patronymic"));
-            ps.setDate(4, java.sql.Date.valueOf(request.getParameter("dateOfBirth")));
+
+            if (!request.getParameter("dayOfBirth").equals("") &&
+                    !request.getParameter("monthOfBirth").equals("") &&
+                    !request.getParameter("yearOfBirth").equals("")) {
+                ps.setDate(4, java.sql.Date.valueOf(request.getParameter("yearOfBirth") + "-" +
+                                                                request.getParameter("monthOfBirth") + "-" +
+                                                                request.getParameter("dayOfBirth")));
+            } else {
+                ps.setDate(4, null);
+            }
             ps.setString(5, request.getParameter("placeOfBirth"));
             ps.setString(6, request.getParameter("education"));
             ps.setString(7, request.getParameter("position"));
             ps.setString(8, request.getParameter("email"));
             ps.setString(9, request.getParameter("password"));
             ps.setString(10, request.getParameter("scope"));
-            ps.setInt(11, Integer.parseInt(request.getParameter("experience")));
+            if (!request.getParameter("experience").equals("")) {
+                ps.setInt(11, Integer.parseInt(request.getParameter("experience")));
+            } else {
+                ps.setInt(11, 0);
+            }
             ResultSet rs = ps.executeQuery();
             rs.next();
             int userId = rs.getInt("id");
-            if (filePart.getSize() != 0) {
+            if (filePart != null && filePart.getSize() != 0) {
                 savePic(filePart, path, userId);
             }
         } catch (SQLException e) {

@@ -26,7 +26,7 @@ public class SignUpServlet extends HttpServlet {
                 response.addCookie(cookie);
                 response.sendRedirect("/profile");
             } else {
-                response.sendRedirect("/sign-up?id=problem");
+                response.sendRedirect("/sign-up?problem=email_is_not_unique");
             }
         }
     }
@@ -40,6 +40,9 @@ public class SignUpServlet extends HttpServlet {
                     .getConfig(request.getServletContext())
                     .getTemplate("signup.ftl");
             HashMap<String, Object> root = new HashMap<>();
+            if (request.getParameter("problem") != null && request.getParameter("problem").equals("email_is_not_unique")) {
+                root.put("problem", "emailIsNotUnique");
+            }
             root.put("form_url", request.getRequestURI());
             root.put("page", "sign-up");
             root.put("user", userService.getCurrentUser(request));
@@ -49,5 +52,6 @@ public class SignUpServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
+
     }
 }

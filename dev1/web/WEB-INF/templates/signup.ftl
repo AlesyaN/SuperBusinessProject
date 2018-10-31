@@ -36,6 +36,11 @@
                     <input name="email" type="text" class="form-control" id="email" placeholder="Email" required required
                            onblur="validateForm('email', /[a-zA-Z][0-9a-zA-Z.]*@([a-zA-Z][0-9a-zA-Z]+\.)+[a-zA-Z]+/, 'email_msg', 'Email should be like example123@mail.com')">
                     <div id="email_msg"></div>
+                    <#if problem??>
+                        <#if problem == "emailIsNotUnique">
+                            <div>E-mail is already reserved, try another one</div>
+                        </#if>
+                    </#if>
                 </div>
                 <div class="col-3"></div>
             </div>
@@ -92,8 +97,14 @@
             <div class="form-group row">
                 <div class="col-3"></div>
                 <label for="birthdate" class="col-2 col-form-label">Birth date</label>
-                <div class="col-4">
-                    <input name="dateOfBirth" type="text" class="form-control" id="birthdate" placeholder="Birth date">
+                <div class="col-1">
+                    <input name="dayOfBirth" type="text" class="form-control" id="birthdate" placeholder="dd">
+                </div>
+                <div class="col-1">
+                    <input name="monthOfBirth" type="text" class="form-control" id="birthdate" placeholder="MM">
+                </div>
+                <div class="col-2">
+                    <input name="yearOfBirth" type="text" class="form-control" id="birthdate" placeholder="yyyy">
                 </div>
                 <div class="col-3"></div>
             </div>
