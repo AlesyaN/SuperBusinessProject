@@ -52,8 +52,10 @@ public class NewsServlet extends HttpServlet {
             root.put("user", userService.getCurrentUser(request));
 
             String id = request.getPathInfo().substring(1);
+            System.out.println(id);
             Post post = postService.getPostById(Integer.parseInt(id));
             root.put("post", post);
+            System.out.println(post.getPicPath());
             root.put("likes", likeService.getLikesByPost(post, true).size());
             root.put("dislikes", likeService.getLikesByPost(post, false).size());
             root.put("comments", commentService.getCommentsByPost(post));

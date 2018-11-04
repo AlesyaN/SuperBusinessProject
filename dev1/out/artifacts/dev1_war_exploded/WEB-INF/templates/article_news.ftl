@@ -21,8 +21,7 @@
         <div class="col-1"></div>
         <div class="col-10">
             <h1>${post.title}</h1>
-        <#--<p>Author: <a href="/profile/${post.author.id}">${post.author.getFullName()}</a></p>-->
-            <img src="<#if post.picPath??>${post.picPath}</#if>" width="1000vh" height="auto">
+            <#if post.picPath??><img src="${post.picPath}" width="1000vh" height="auto"></#if>
             <p>${post.text}</p>
             <p>${post.getDateToString()}</p>
             <div class="row">
@@ -96,6 +95,12 @@
             success: function (msg) {
                 var likes = document.getElementById("likes");
                 var val = likes.innerHTML;
+                var dislikes = document.getElementById("dislikes");
+                var valdislikes = dislikes.innerHTML;
+                if (msg.dislike) {
+                    valdislikes = +valdislikes - 1;
+                    dislikes.innerHTML = valdislikes;
+                }
                 if (msg.like) {
                     val = +val + 1;
                     likes.innerHTML = val;
@@ -178,7 +183,6 @@
                 }
             });
         } else {
-            $("#list").html("");
         }
     }
 

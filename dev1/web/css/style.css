@@ -31,11 +31,31 @@ div.row {
     margin: 20vh;
 }
 
+.art-text {
+	overflow: hidden;
+	height: 165px;
+}
+
+.main-text {
+	overflow: hidden;
+	height: 300px;
+}
+
 .article-wrapper-main {
 	padding-bottom: 50px;
+
+}
+
+.image-wrapper {
+    height: 150px;
 }
 
 .search-form {
 	padding-bottom: 50px;
 	align-content: center;
+}
+
+.image {
+	height: auto;
+	max-width: 100%;
 }

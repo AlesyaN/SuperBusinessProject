@@ -24,7 +24,6 @@ public class CommentService {
     }
 
     public void deleteComment(HttpServletRequest request) {
-        System.out.println(request.getParameter("id"));
         commentDAO.deleteCommentById(Integer.parseInt(request.getParameter("id")));
     }
 }

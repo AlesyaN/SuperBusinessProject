@@ -10,19 +10,21 @@ function insertAll() {
             $('.article-item').remove();
             if (msg.posts != null) {
                 for (var i = 0; i < msg.posts.length; i++) {
-                    list.append("<li class='article-item'>" +
+                    list.append("<div class='article-item'>" +
                         "<div class='row'> " +
                         "<div class='col-4'>" +
-                        "<img src=" + msg.posts[i].picPath + " width='100px' height='100px' alt='Responsive image'>" +
+                        "<img src=" + msg.posts[i].picPath + " class='image img-fluid' alt='Responsive image'>" +
                         "</div>" +
                         "<div class='col-8'>" +
+                        "<div class='art-text'>" +
                         "<h3>" + msg.posts[i].title + "</h3>" +
                         "<p>" + msg.posts[i].text + "</p>" +
+                        "</div>" +
                         "<a href='/" + msg.posts[i].theme + "/" + msg.posts[i].id + "'>More</a>" +
                         "</div>" +
                         "</div>" +
                         "<hr>" +
-                        "</li>");
+                        "</div>");
                 }
             } else {
             }
@@ -33,11 +35,8 @@ function insertAll() {
 const autoComplete = (inputId) => {
 
     var query = $("#search-box").val();
-    console.log(document.getElementById("news"));
     var news = document.getElementById("news").checked;
     var analysis = document.getElementById("analysis").checked;
-    console.log(news);
-    console.log(analysis);
     if (query.length > 0) {
         $.ajax({
             url: '/ajax',
@@ -53,19 +52,21 @@ const autoComplete = (inputId) => {
                 $('.article-item').remove();
                 if (msg.posts != null) {
                     for (var i = 0; i < msg.posts.length; i++) {
-                        list.append("<li class='article-item'>" +
+                        list.append("<div class='article-item'>" +
                             "<div class='row'> " +
                             "<div class='col-4'>" +
-                            "<img src=" + msg.posts[i].picPath + " width='100px' height='100px' alt='Responsive image'>" +
+                            "<img src=" + msg.posts[i].picPath + " class='image img-fluid' alt='Responsive image'>" +
                             "</div>" +
                             "<div class='col-8'>" +
+                            "<div class='art-text'>" +
                             "<h3>" + msg.posts[i].title + "</h3>" +
                             "<p>" + msg.posts[i].text + "</p>" +
+                            "</div>" +
                             "<a href='/" + msg.posts[i].theme + "/" + msg.posts[i].id + "'>More</a>" +
                             "</div>" +
                             "</div>" +
                             "<hr>" +
-                            "</li>");
+                            "</div>");
                     }
                 } else {
                 }

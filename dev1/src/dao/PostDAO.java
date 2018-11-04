@@ -24,15 +24,13 @@ public class PostDAO {
     public List<Post> getMainPosts() {
         List<Post> mainPosts = new ArrayList<>();
         List<Post> posts = getPosts();
-        for (int i = posts.size() - 1; i > posts.size() - 6; i--) {
-            mainPosts.add(posts.get(i));
-        }
+       mainPosts = posts.subList(0, 5);
         return mainPosts;
     }
 
     public List<Post> getPosts() {
         try {
-            PreparedStatement ps = connection.prepareStatement("select * from news ORDER BY \"date\"");
+            PreparedStatement ps = connection.prepareStatement("select * from news ORDER BY \"date\" DESC");
             ResultSet rs = ps.executeQuery();
             return Helper.makeORMListOfPosts(rs);
         } catch (SQLException e) {
@@ -83,7 +81,6 @@ public class PostDAO {
         OutputStream out = null;
         InputStream filecontent = null;
         String ext = fileName.substring(fileName.lastIndexOf("."));
-        System.out.println(ext);
         String filename = System.currentTimeMillis() + "";
         String fullpath = path + File.separator + filename + ext;
         try {
@@ -145,8 +142,6 @@ public class PostDAO {
             if (news && !analysis || !news && analysis) {
                 request += " and theme=?";
             }
-            System.out.println(request);
-            System.out.println(news + " " + analysis);
             PreparedStatement ps = connection.prepareStatement(
                     request
             );

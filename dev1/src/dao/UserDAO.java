@@ -94,11 +94,10 @@ public class UserDAO {
             OutputStream out = null;
             InputStream filecontent = null;
             String filename = getFileName(filePart);
-        System.out.println(filename);
             String ext = filename.substring(filename.lastIndexOf(".")).toLowerCase();
             String fileName = System.currentTimeMillis() + "";
             String fullpath = path + File.separator +  userId + File.separator + fileName + ext;
-            System.out.println(fullpath);
+
             try {
                 try {
                     out = new FileOutputStream(new File(fullpath));

@@ -44,23 +44,25 @@
             </div>
 
             <!-- search results -->
-            <ul id="search-list" class="search-list">
+            <div id="search-list" class="search-list">
                 <#list posts as p>
-                    <li class="article-item">
+                    <div class="article-item">
                         <div class="row">
                             <div class="col-4">
-                                <img src="${p.picPath}" width="100px" height="100px" alt="Responsive image">
+                                <img src="${p.picPath}" class="image img-fluid" alt="Responsive image">
                             </div>
                             <div class="col-8">
+                                <div class="art-text">
                                 <h3>${p.title}</h3>
                                 <p>${p.text}</p>
+                                </div>
                                 <a href="/${p.theme}/${p.id}">More</a>
                             </div>
                         </div>
                         <hr>
-                    </li>
+                    </div>
                 </#list>
-            </ul>
+            </div>
             <!--  -->
 
 

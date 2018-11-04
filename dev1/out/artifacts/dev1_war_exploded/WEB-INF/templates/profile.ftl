@@ -15,12 +15,18 @@
 <div class="profile">
     <div class="row">
         <div class="col-4"></div>
-        <div class="col-4">
+        <div class="col-5">
         <#if someuser??>
             <#if someuser.picPath??>
-            <img src="${user.picPath}" width="100px" height="100px" alt="Responsive image">
+            <div class="row">
+                <div class="col">
+                    <img src="${user.picPath}" class="image img-fluid" alt="Responsive image">
+                </div>
+            <div class="col">
+            </div>
             </#if>
             <#if user?? && user=someuser>
+            </div>
             <h3>My Profile</h3>
             <#else >
              <h3>Profile of</h3>
@@ -55,7 +61,7 @@
             </#if>
         </#if>
         </div>
-        <div class="col-4"></div>
+        <div class="col-2"></div>
 
     </div>
 </div>
