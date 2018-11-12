@@ -4,6 +4,7 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import helpers.Helper;
 import services.PostService;
+import services.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 
 public class SearchServlet extends HttpServlet {
     PostService postService = new PostService();
+    UserService userService = new UserService();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -27,6 +29,7 @@ public class SearchServlet extends HttpServlet {
         HashMap<String, Object> root = new HashMap<>();
         root.put("form_url", request.getRequestURI());
         root.put("page", "search");
+        root.put("user", userService.getCurrentUser(request));
         if (request.getParameter("search") != null && !request.getParameter("search").equals("")) {
             boolean news = request.getParameter("news") != null && request.getParameter("news").equals("on");;
             boolean analysis = request.getParameter("analysis") != null && request.getParameter("analysis").equals("on");;

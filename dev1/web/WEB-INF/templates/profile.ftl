@@ -17,16 +17,16 @@
         <div class="col-4"></div>
         <div class="col-5">
         <#if someuser??>
+        <div class="row">
+            <div class="col">
             <#if someuser.picPath??>
-            <div class="row">
-                <div class="col">
-                    <img src="${user.picPath}" class="image img-fluid" alt="Responsive image">
-                </div>
+                <img src="${someuser.picPath}" class="image img-fluid" alt="Responsive image">
+            </#if>
+            </div>
             <div class="col">
             </div>
-            </#if>
-            <#if user?? && user=someuser>
             </div>
+            <#if user?? && user=someuser>
             <h3>My Profile</h3>
             <#else >
              <h3>Profile of</h3>

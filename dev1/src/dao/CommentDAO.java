@@ -22,7 +22,7 @@ public class CommentDAO {
 
     public List<Comment> getCommentsByPost(Post post) {
         try {
-            PreparedStatement ps = connection.prepareStatement("select * from comment where news_id=?");
+            PreparedStatement ps = connection.prepareStatement("select * from comment where news_id=? order by \"date\"");
             ps.setInt(1, post.getId());
             ResultSet rs = ps.executeQuery();
             return Helper.makeORMListOfComments(rs);

@@ -1,4 +1,4 @@
-const charsLeft = () => document.getElementById('count').innerHTML = "Characters left: " + (160 - document.getElementById('comment').value.length);
+const charsLeft = () => document.getElementById('count').innerHTML = "Characters left: " + (160 - document.getElementById('text').value.length);
 
 const validateForm = (id, re, msg_id, msg) => {
     let btn = document.getElementById('submit');

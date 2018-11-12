@@ -13,9 +13,11 @@
 <body>
 <#include "navbar.ftl">
 <div class="container-fluid">
+    <#if user??>
     <div class="row justify-content-center">
         <a href="/new-post" class="btn btn-primary">Create analysis article</a>
     </div>
+    </#if>
     <div class="row">
         <div class="col-1"></div>
         <div class="col">
